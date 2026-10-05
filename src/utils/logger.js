@@ -1,37 +1,18 @@
-// utils/logger.js — Winston logger
+// utils/logger.js — Winston logger (console uniquement, compatible serverless)
 const { createLogger, format, transports } = require('winston');
-const path = require('path');
-const fs = require('fs');
-
-const isProd = process.env.NODE_ENV === 'production';
-
-const loggerTransports = [
-  new transports.Console({
-    format: isProd
-      ? format.combine(format.timestamp(), format.json())
-      : format.combine(format.colorize(), format.simple()),
-  }),
-];
-
-// Fichiers de log uniquement en local (pas sur Vercel/serverless)
-if (!isProd) {
-  const logsDir = path.join(__dirname, '../../logs');
-  if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir, { recursive: true });
-  loggerTransports.push(
-    new transports.File({ filename: path.join(logsDir, 'error.log'), level: 'error' }),
-    new transports.File({ filename: path.join(logsDir, 'combined.log') })
-  );
-}
 
 const logger = createLogger({
-  level: isProd ? 'warn' : 'debug',
+  level: process.env.NODE_ENV === 'production' ? 'warn' : 'debug',
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.errors({ stack: true }),
     format.splat(),
-    format.json()
+    format.printf(({ timestamp, level, message, ...meta }) => {
+      const extra = Object.keys(meta).length ? ' ' + JSON.stringify(meta) : '';
+      return `${timestamp} [${level.toUpperCase()}] ${message}${extra}`;
+    })
   ),
-  transports: loggerTransports,
+  transports: [new transports.Console()],
 });
 
 module.exports = logger;
