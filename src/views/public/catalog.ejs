@@ -1,0 +1,81 @@
+<%- include('../partials/header') %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 pb-24">
+  <div class="mb-8">
+    <h1 class="text-3xl font-extrabold">Catalogue pneus</h1>
+    <p class="text-gray-400 mt-2">Montage à domicile inclus en Île-de-France</p>
+  </div>
+
+  <!-- Filtres -->
+  <form method="GET" class="card p-5 mb-8 grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+    <div class="xl:col-span-2">
+      <label class="form-label text-xs">Recherche libre</label>
+      <input class="form-input py-2 text-sm" type="text" name="q" placeholder="Michelin, Pilot Sport..." value="<%= query.q || '' %>">
+    </div>
+    <div>
+      <label class="form-label text-xs">Largeur (mm)</label>
+      <select class="form-select py-2 text-sm" name="width">
+        <option value="">Toutes</option>
+        <% widths.forEach(w => { %><option value="<%= w %>" <%= query.width == w ? 'selected' : '' %>><%= w %></option><% }) %>
+      </select>
+    </div>
+    <div>
+      <label class="form-label text-xs">Hauteur (%)</label>
+      <select class="form-select py-2 text-sm" name="ratio">
+        <option value="">Tous</option>
+        <% ratios.forEach(r => { %><option value="<%= r %>" <%= query.ratio == r ? 'selected' : '' %>><%= r %></option><% }) %>
+      </select>
+    </div>
+    <div>
+      <label class="form-label text-xs">Diamètre (")</label>
+      <select class="form-select py-2 text-sm" name="diameter">
+        <option value="">Tous</option>
+        <% diameters.forEach(d => { %><option value="<%= d %>" <%= query.diameter == d ? 'selected' : '' %>>R<%= d %></option><% }) %>
+      </select>
+    </div>
+    <div>
+      <label class="form-label text-xs">Marque</label>
+      <select class="form-select py-2 text-sm" name="brand">
+        <option value="">Toutes</option>
+        <% brands.forEach(b => { %><option value="<%= b.brand %>" <%= query.brand === b.brand ? 'selected' : '' %>><%= b.brand %></option><% }) %>
+      </select>
+    </div>
+    <div>
+      <label class="form-label text-xs">Saison</label>
+      <select class="form-select py-2 text-sm" name="season">
+        <option value="">Toutes</option>
+        <option value="summer"    <%= query.season === 'summer'    ? 'selected' : '' %>>Été</option>
+        <option value="winter"    <%= query.season === 'winter'    ? 'selected' : '' %>>Hiver</option>
+        <option value="allseason" <%= query.season === 'allseason' ? 'selected' : '' %>>4 saisons</option>
+      </select>
+    </div>
+    <div>
+      <label class="form-label text-xs">Budget max (€)</label>
+      <input class="form-input py-2 text-sm" type="number" name="maxPrice" placeholder="150" value="<%= query.maxPrice || '' %>">
+    </div>
+    <div class="flex items-end gap-2 sm:col-span-2">
+      <button type="submit" class="btn-primary py-2 px-4 text-sm flex-1">Rechercher</button>
+      <a href="/catalogue" class="btn-outline py-2 px-4 text-sm">Reset</a>
+    </div>
+  </form>
+
+  <!-- Résultats -->
+  <div class="flex items-center justify-between mb-4">
+    <p class="text-gray-400 text-sm"><strong class="text-white"><%= tires.length %></strong> pneu(s) trouvé(s)</p>
+  </div>
+
+  <% if (tires.length === 0) { %>
+    <div class="text-center py-16 text-gray-500">
+      <p class="text-xl mb-4">Aucun pneu ne correspond à vos critères.</p>
+      <a href="/catalogue" class="btn-outline">Voir tout le catalogue</a>
+    </div>
+  <% } else { %>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <% tires.forEach(t => { %>
+        <%- include('../partials/tire-card', { tire: t }) %>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

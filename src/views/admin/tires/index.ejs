@@ -1,0 +1,97 @@
+<%- include('../../partials/admin-head') %>
+
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+  <h2 class="text-2xl font-bold">Gestion des pneus</h2>
+  <div class="flex gap-2">
+    <a href="/admin/tires/pricing" class="btn-secondary text-sm py-2 px-4">Prix en masse</a>
+    <a href="/admin/tires/new"     class="btn-primary text-sm py-2 px-4">+ Nouveau pneu</a>
+  </div>
+</div>
+
+<!-- Filtres -->
+<form method="GET" class="card p-4 mb-6 flex flex-wrap gap-3">
+  <input class="form-input w-auto flex-1 min-w-40 py-2" type="text" name="search" placeholder="Rechercher marque, modèle..." value="<%= query.search || '' %>">
+  <select name="brand" class="form-select w-auto py-2">
+    <option value="">Toutes les marques</option>
+    <% brands.forEach(b => { %><option value="<%= b.brand %>" <%= query.brand === b.brand ? 'selected' : '' %>><%= b.brand %></option><% }) %>
+  </select>
+  <select name="season" class="form-select w-auto py-2">
+    <option value="">Toutes saisons</option>
+    <option value="summer"    <%= query.season === 'summer'    ? 'selected' : '' %>>Été</option>
+    <option value="winter"    <%= query.season === 'winter'    ? 'selected' : '' %>>Hiver</option>
+    <option value="allseason" <%= query.season === 'allseason' ? 'selected' : '' %>>4 saisons</option>
+  </select>
+  <label class="flex items-center gap-2 text-sm text-gray-300 cursor-pointer">
+    <input type="checkbox" name="lowstock" value="1" class="rounded" <%= query.lowstock ? 'checked' : '' %>> Stocks bas
+  </label>
+  <button type="submit" class="btn-primary py-2 px-4 text-sm">Filtrer</button>
+  <a href="/admin/tires" class="btn-outline py-2 px-4 text-sm">Réinitialiser</a>
+</form>
+
+<!-- Tableau -->
+<div class="card overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead class="bg-gray-700/50">
+      <tr>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Photo</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Pneu</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Dimension</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Saison</th>
+        <th class="text-right px-4 py-3 text-gray-400 font-medium">Achat</th>
+        <th class="text-right px-4 py-3 text-gray-400 font-medium">Vente</th>
+        <th class="text-right px-4 py-3 text-gray-400 font-medium">Stock</th>
+        <th class="text-center px-4 py-3 text-gray-400 font-medium">Actif</th>
+        <th class="px-4 py-3"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-700">
+      <% if (tires.length === 0) { %>
+        <tr><td colspan="9" class="px-4 py-8 text-center text-gray-500">Aucun pneu trouvé.</td></tr>
+      <% } %>
+      <% tires.forEach(t => { %>
+        <tr class="hover:bg-gray-700/30 transition-colors <%= !t.active ? 'opacity-50' : '' %>">
+          <td class="px-4 py-3">
+            <% if (t.imageUrl) { %>
+              <img src="<%= t.imageUrl %>" alt="<%= t.brand %>" class="w-10 h-10 object-cover rounded">
+            <% } else { %>
+              <div class="w-10 h-10 bg-gray-700 rounded flex items-center justify-center text-gray-500 text-xs">N/A</div>
+            <% } %>
+          </td>
+          <td class="px-4 py-3">
+            <p class="font-semibold"><%= t.brand %></p>
+            <p class="text-gray-400 text-xs"><%= t.model %></p>
+          </td>
+          <td class="px-4 py-3 font-mono text-sm"><%= t.width %>/<%= t.ratio %> R<%= t.diameter %></td>
+          <td class="px-4 py-3">
+            <% const seasons = { summer: ['Été','bg-orange-900/50 text-orange-300'], winter: ['Hiver','bg-blue-900/50 text-blue-300'], allseason: ['4 saisons','bg-green-900/50 text-green-300'] }; %>
+            <span class="text-xs px-2 py-1 rounded-full <%= seasons[t.season]?.[1] || 'bg-gray-700' %>"><%= seasons[t.season]?.[0] || t.season %></span>
+          </td>
+          <td class="px-4 py-3 text-right text-gray-400"><%= t.buyPrice.toFixed(2) %> €</td>
+          <td class="px-4 py-3 text-right font-semibold text-orange-400"><%= t.sellPrice.toFixed(2) %> €</td>
+          <td class="px-4 py-3 text-right">
+            <span class="<%= t.stock <= 3 ? (t.stock === 0 ? 'badge-cancel' : 'badge-new') : 'badge-done' %>"><%= t.stock %></span>
+          </td>
+          <td class="px-4 py-3 text-center">
+            <form method="POST" action="/admin/tires/<%= t.id %>/toggle">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button type="submit" class="text-xs <%= t.active ? 'text-green-400 hover:text-red-400' : 'text-gray-500 hover:text-green-400' %> transition-colors">
+                <%= t.active ? '✓ Actif' : '✗ Inactif' %>
+              </button>
+            </form>
+          </td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-2 justify-end">
+              <a href="/admin/tires/<%= t.id %>/edit" class="text-blue-400 hover:text-blue-300 text-xs">Modifier</a>
+              <form method="POST" action="/admin/tires/<%= t.id %>/delete" onsubmit="return confirm('Supprimer ce pneu ?')">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="text-red-400 hover:text-red-300 text-xs">Supprimer</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../../partials/admin-foot') %>

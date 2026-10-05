@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12 pb-24 prose prose-invert max-w-none">
+  <h1 class="text-3xl font-extrabold mb-8">Mentions légales</h1>
+  <div class="card p-8 space-y-6 text-gray-300 leading-relaxed">
+    <section>
+      <h2 class="text-xl font-bold text-white mb-2">Éditeur du site</h2>
+      <p>TRANSCOM PNEUS<br>Île-de-France<br>Téléphone : <%= phone %><br>Email : <%= typeof settings !== 'undefined' ? settings.company_email : '' %></p>
+    </section>
+    <section>
+      <h2 class="text-xl font-bold text-white mb-2">Hébergement</h2>
+      <p>Ce site est hébergé sur un serveur VPS ou une plateforme cloud (Render / Railway). Les données sont stockées sur des serveurs situés en Europe.</p>
+    </section>
+    <section>
+      <h2 class="text-xl font-bold text-white mb-2">Propriété intellectuelle</h2>
+      <p>L'ensemble du contenu de ce site (textes, images, logo) est la propriété exclusive de TRANSCOM PNEUS. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
+    </section>
+    <section>
+      <h2 class="text-xl font-bold text-white mb-2">Responsabilité</h2>
+      <p>TRANSCOM PNEUS s'efforce de maintenir les informations publiées à jour mais ne peut garantir leur exactitude. La société décline toute responsabilité en cas d'erreur ou d'omission.</p>
+    </section>
+    <section>
+      <h2 class="text-xl font-bold text-white mb-2">Données personnelles</h2>
+      <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ces droits, contactez-nous à <%= typeof settings !== 'undefined' ? settings.company_email : 'contact@transcompneus.fr' %>.</p>
+    </section>
+    <section>
+      <h2 class="text-xl font-bold text-white mb-2">Cookies</h2>
+      <p>Ce site utilise uniquement un cookie de session technique, nécessaire au fonctionnement du formulaire de réservation. Aucun cookie tiers ni tracker n'est utilisé.</p>
+    </section>
+  </div>
+</div>
+<%- include('../partials/footer') %>

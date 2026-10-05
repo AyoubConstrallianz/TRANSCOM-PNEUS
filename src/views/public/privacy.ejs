@@ -1,0 +1,14 @@
+<%- include('../partials/header') %>
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12 pb-24">
+  <h1 class="text-3xl font-extrabold mb-8">Politique de confidentialité (RGPD)</h1>
+  <div class="card p-8 space-y-6 text-gray-300 leading-relaxed text-sm">
+    <section><h2 class="text-lg font-bold text-white mb-2">Responsable du traitement</h2><p>TRANSCOM PNEUS — <%= phone %> — <%= typeof settings !== 'undefined' ? settings.company_email : 'contact@transcompneus.fr' %></p></section>
+    <section><h2 class="text-lg font-bold text-white mb-2">Données collectées</h2><p>Lors d'une réservation ou d'un contact, nous collectons : nom, téléphone, email (optionnel), adresse d'intervention, immatriculation (optionnel). Ces données sont utilisées uniquement pour traiter votre demande.</p></section>
+    <section><h2 class="text-lg font-bold text-white mb-2">Base légale</h2><p>Traitement fondé sur l'exécution du contrat (réservation) et votre consentement explicite pour les communications commerciales.</p></section>
+    <section><h2 class="text-lg font-bold text-white mb-2">Durée de conservation</h2><p>Les données sont conservées 3 ans à compter du dernier contact, puis supprimées, sauf obligation légale.</p></section>
+    <section><h2 class="text-lg font-bold text-white mb-2">Vos droits</h2><p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de portabilité et d'opposition. Pour exercer ces droits : <%= typeof settings !== 'undefined' ? settings.company_email : 'contact@transcompneus.fr' %>. Vous pouvez également saisir la CNIL (cnil.fr).</p></section>
+    <section><h2 class="text-lg font-bold text-white mb-2">Partage des données</h2><p>Aucune donnée n'est vendue ni partagée avec des tiers. Les données sont hébergées sur des serveurs situés dans l'Union Européenne.</p></section>
+    <section><h2 class="text-lg font-bold text-white mb-2">Cookies</h2><p>Un unique cookie de session est utilisé pour la sécurité du formulaire (protection CSRF). Il expire à la fermeture du navigateur. Aucun cookie publicitaire ni analytique n'est utilisé.</p></section>
+  </div>
+</div>
+<%- include('../partials/footer') %>

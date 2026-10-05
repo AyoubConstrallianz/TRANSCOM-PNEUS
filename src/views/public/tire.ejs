@@ -1,0 +1,78 @@
+<%- include('../partials/header') %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 pb-24">
+  <!-- Fil d'Ariane -->
+  <nav class="text-sm text-gray-400 mb-6">
+    <a href="/" class="hover:text-white">Accueil</a> /
+    <a href="/catalogue" class="hover:text-white">Catalogue</a> /
+    <span class="text-gray-300"><%= tire.brand %> <%= tire.model %></span>
+  </nav>
+
+  <div class="grid lg:grid-cols-2 gap-10 mb-16">
+    <!-- Image -->
+    <div class="aspect-square bg-gray-800 rounded-2xl overflow-hidden">
+      <% if (tire.imageUrl) { %>
+        <img src="<%= tire.imageUrl %>" alt="<%= tire.brand %> <%= tire.model %>" class="w-full h-full object-cover">
+      <% } else { %>
+        <div class="w-full h-full flex items-center justify-center text-gray-600">
+          <svg class="w-32 h-32 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1"/><circle cx="12" cy="12" r="3" stroke-width="1"/></svg>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Infos -->
+    <div class="flex flex-col">
+      <% const seasonLabel = { summer: 'Été ☀️', winter: 'Hiver ❄️', allseason: '4 saisons 🌦️' }; %>
+      <p class="text-gray-400 uppercase tracking-widest text-sm mb-2"><%= tire.brand %></p>
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-4"><%= tire.model %></h1>
+
+      <div class="flex flex-wrap gap-3 mb-6">
+        <span class="bg-gray-700 text-gray-200 text-sm px-3 py-1.5 rounded-full font-mono font-bold"><%= tire.width %>/<%= tire.ratio %> R<%= tire.diameter %></span>
+        <span class="bg-gray-700 text-gray-200 text-sm px-3 py-1.5 rounded-full"><%= seasonLabel[tire.season] || tire.season %></span>
+        <% if (tire.stock > 0 && tire.stock <= 3) { %>
+          <span class="bg-red-900/60 text-red-300 text-sm px-3 py-1.5 rounded-full">Plus que <%= tire.stock %> en stock</span>
+        <% } else if (tire.stock > 0) { %>
+          <span class="bg-green-900/60 text-green-300 text-sm px-3 py-1.5 rounded-full">En stock</span>
+        <% } else { %>
+          <span class="bg-gray-700 text-gray-400 text-sm px-3 py-1.5 rounded-full">Rupture de stock</span>
+        <% } %>
+      </div>
+
+      <% if (tire.description) { %>
+        <p class="text-gray-300 leading-relaxed mb-6"><%= tire.description %></p>
+      <% } %>
+
+      <div class="mt-auto">
+        <div class="flex items-end gap-2 mb-6">
+          <span class="text-5xl font-extrabold text-orange-400"><%= tire.sellPrice %> €</span>
+          <span class="text-gray-400 mb-1">/ pneu</span>
+        </div>
+        <p class="text-gray-400 text-sm mb-6">Montage à domicile inclus. Frais de déplacement selon votre département.</p>
+        <% if (tire.stock > 0) { %>
+          <a href="/reservation?tireId=<%= tire.id %>" class="btn-primary text-base px-8 py-4 w-full justify-center">
+            Commander avec montage
+          </a>
+        <% } else { %>
+          <a href="tel:<%= phone %>" class="btn-secondary text-base px-8 py-4 w-full justify-center">
+            Nous appeler pour disponibilité
+          </a>
+        <% } %>
+        <a href="/catalogue" class="block text-center text-gray-400 hover:text-white text-sm mt-4 transition-colors">← Retour au catalogue</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pneus similaires -->
+  <% if (similar.length > 0) { %>
+    <div>
+      <h2 class="text-2xl font-bold mb-6">Pneus similaires</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <% similar.forEach(t => { %>
+          <%- include('../partials/tire-card', { tire: t }) %>
+        <% }) %>
+      </div>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,86 @@
+</main>
+
+<footer class="bg-black border-t border-zinc-800 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid md:grid-cols-4 gap-8">
+
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <div class="mb-4">
+          <img src="/images/logo.png" alt="TRANSCOM PNEUS" class="h-16 w-auto">
+        </div>
+        <p class="text-zinc-400 text-sm leading-relaxed mb-4">Le spécialiste du pneu à domicile en Île-de-France. Intervention rapide, prix clairs.</p>
+        <a href="tel:<%= phone %>" class="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 text-sm font-semibold">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <%= phone %>
+        </a>
+        <% if (typeof settings !== 'undefined' && settings.opening_hours) { %>
+          <p class="text-zinc-500 text-xs mt-2"><%= settings.opening_hours %></p>
+        <% } %>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h3 class="font-bold text-white mb-4 uppercase text-xs tracking-widest text-yellow-400">Nos services</h3>
+        <ul class="space-y-2 text-sm text-zinc-400">
+          <li><a href="/services#montage"    class="hover:text-yellow-400 transition-colors">Montage à domicile</a></li>
+          <li><a href="/services#crevaison"  class="hover:text-yellow-400 transition-colors">Réparation crevaison</a></li>
+          <li><a href="/services#equilibrage"class="hover:text-yellow-400 transition-colors">Équilibrage</a></li>
+          <li><a href="/services#depannage"  class="hover:text-yellow-400 transition-colors">Dépannage urgent</a></li>
+          <li><a href="/reservation"         class="hover:text-yellow-400 transition-colors">Prendre RDV</a></li>
+        </ul>
+      </div>
+
+      <!-- Zones -->
+      <div>
+        <h3 class="font-bold text-yellow-400 mb-4 uppercase text-xs tracking-widest">Zones desservies</h3>
+        <ul class="space-y-1 text-sm text-zinc-400">
+          <li><a href="/pneus-domicile/75" class="hover:text-yellow-400">Paris (75)</a></li>
+          <li><a href="/pneus-domicile/92" class="hover:text-yellow-400">Hauts-de-Seine (92)</a></li>
+          <li><a href="/pneus-domicile/93" class="hover:text-yellow-400">Seine-Saint-Denis (93)</a></li>
+          <li><a href="/pneus-domicile/94" class="hover:text-yellow-400">Val-de-Marne (94)</a></li>
+          <li><a href="/pneus-domicile/78" class="hover:text-yellow-400">Yvelines (78)</a></li>
+          <li><a href="/pneus-domicile/91" class="hover:text-yellow-400">Essonne (91)</a></li>
+          <li><a href="/pneus-domicile/77" class="hover:text-yellow-400">Seine-et-Marne (77)</a></li>
+          <li><a href="/pneus-domicile/95" class="hover:text-yellow-400">Val-d'Oise (95)</a></li>
+        </ul>
+      </div>
+
+      <!-- Info -->
+      <div>
+        <h3 class="font-bold text-yellow-400 mb-4 uppercase text-xs tracking-widest">Informations</h3>
+        <ul class="space-y-2 text-sm text-zinc-400">
+          <li><a href="/faq"              class="hover:text-yellow-400 transition-colors">FAQ</a></li>
+          <li><a href="/contact"          class="hover:text-yellow-400 transition-colors">Contact</a></li>
+          <li><a href="/mentions-legales" class="hover:text-yellow-400 transition-colors">Mentions légales</a></li>
+          <li><a href="/cgv"              class="hover:text-yellow-400 transition-colors">CGV</a></li>
+          <li><a href="/confidentialite"  class="hover:text-yellow-400 transition-colors">Confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-zinc-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-zinc-600 text-xs">© <%= new Date().getFullYear() %> TRANSCOM PNEUS — Tous droits réservés</p>
+      <a href="/reservation" class="btn-primary py-2 px-5">Prendre rendez-vous →</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky CTA -->
+<%- include('sticky-cta') %>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu   = document.getElementById('nav-menu');
+  const iconO  = document.getElementById('nav-icon-open');
+  const iconC  = document.getElementById('nav-icon-close');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+      iconO.classList.toggle('hidden');
+      iconC.classList.toggle('hidden');
+    });
+  }
+</script>
+</body>
+</html>

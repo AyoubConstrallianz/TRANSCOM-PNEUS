@@ -1,0 +1,55 @@
+<%- include('../../partials/admin-head') %>
+
+<div class="flex items-center gap-3 mb-6">
+  <a href="/admin/customers" class="text-gray-400 hover:text-white">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+  </a>
+  <h2 class="text-2xl font-bold"><%= customer.name %></h2>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <div class="card p-6">
+    <h3 class="font-semibold mb-4 text-gray-300 text-sm uppercase tracking-wide">Informations</h3>
+    <dl class="space-y-3">
+      <div><dt class="text-gray-500 text-xs">Nom</dt><dd class="font-medium"><%= customer.name %></dd></div>
+      <div><dt class="text-gray-500 text-xs">Téléphone</dt><dd><a href="tel:<%= customer.phone %>" class="text-red-400 hover:text-red-300"><%= customer.phone %></a></dd></div>
+      <div><dt class="text-gray-500 text-xs">Email</dt><dd class="text-gray-300"><%= customer.email || '—' %></dd></div>
+      <div><dt class="text-gray-500 text-xs">Code postal</dt><dd class="text-gray-300"><%= customer.postalCode %></dd></div>
+      <div><dt class="text-gray-500 text-xs">Client depuis</dt><dd class="text-gray-300"><%= new Date(customer.createdAt).toLocaleDateString('fr-FR') %></dd></div>
+    </dl>
+  </div>
+
+  <div class="lg:col-span-2 card overflow-x-auto">
+    <div class="p-5 border-b border-gray-700">
+      <h3 class="font-semibold"><%= customer.bookings.length %> réservation(s)</h3>
+    </div>
+    <table class="w-full text-sm">
+      <thead class="bg-gray-700/50">
+        <tr>
+          <th class="text-left px-4 py-3 text-gray-400 font-medium">#</th>
+          <th class="text-left px-4 py-3 text-gray-400 font-medium">Date</th>
+          <th class="text-left px-4 py-3 text-gray-400 font-medium">Service</th>
+          <th class="text-left px-4 py-3 text-gray-400 font-medium">Statut</th>
+          <th class="text-right px-4 py-3 text-gray-400 font-medium">Total</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-700">
+        <% customer.bookings.forEach(b => { %>
+          <tr class="hover:bg-gray-700/30">
+            <td class="px-4 py-3"><a href="/admin/bookings/<%= b.id %>" class="text-red-400 hover:text-red-300">#<%= b.id %></a></td>
+            <td class="px-4 py-3 text-gray-300"><%= new Date(b.date).toLocaleDateString('fr-FR') %></td>
+            <td class="px-4 py-3 text-gray-300"><%= b.service?.name || '—' %></td>
+            <td class="px-4 py-3">
+              <span class="badge-<%= b.status === 'new' ? 'new' : b.status === 'confirmed' ? 'confirm' : b.status === 'in_progress' ? 'progress' : b.status === 'done' ? 'done' : 'cancel' %>">
+                <%= STATUS_LABELS[b.status] %>
+              </span>
+            </td>
+            <td class="px-4 py-3 text-right text-orange-400 font-semibold"><%= b.totalPrice.toFixed(2) %> €</td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('../../partials/admin-foot') %>

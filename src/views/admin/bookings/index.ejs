@@ -1,0 +1,68 @@
+<%- include('../../partials/admin-head') %>
+
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+  <h2 class="text-2xl font-bold">Réservations</h2>
+  <a href="/admin/bookings/export" class="btn-secondary text-sm py-2 px-4">Export CSV</a>
+</div>
+
+<!-- Filtres -->
+<form method="GET" class="card p-4 mb-6 flex flex-wrap gap-3">
+  <input class="form-input w-auto flex-1 min-w-40 py-2" type="text" name="search" placeholder="Client, tél, immat..." value="<%= query.search || '' %>">
+  <input class="form-input w-auto py-2" type="date" name="date" value="<%= query.date || '' %>">
+  <select name="status" class="form-select w-auto py-2">
+    <option value="">Tous les statuts</option>
+    <% Object.entries(STATUS_LABELS).forEach(([k,v]) => { %>
+      <option value="<%= k %>" <%= query.status === k ? 'selected' : '' %>><%= v %></option>
+    <% }) %>
+  </select>
+  <button type="submit" class="btn-primary py-2 px-4 text-sm">Filtrer</button>
+  <a href="/admin/bookings" class="btn-outline py-2 px-4 text-sm">Réinitialiser</a>
+</form>
+
+<div class="card overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead class="bg-gray-700/50">
+      <tr>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">#</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Client</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Service</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Date & créneau</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">CP</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Statut</th>
+        <th class="text-right px-4 py-3 text-gray-400 font-medium">Total</th>
+        <th class="px-4 py-3"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-700">
+      <% if (bookings.length === 0) { %>
+        <tr><td colspan="8" class="px-4 py-8 text-center text-gray-500">Aucune réservation trouvée.</td></tr>
+      <% } %>
+      <% bookings.forEach(b => { %>
+        <tr class="hover:bg-gray-700/30 transition-colors">
+          <td class="px-4 py-3 font-mono text-red-400">#<%= b.id %></td>
+          <td class="px-4 py-3">
+            <p class="font-medium"><%= b.customer.name %></p>
+            <p class="text-gray-400 text-xs"><%= b.customer.phone %></p>
+          </td>
+          <td class="px-4 py-3 text-gray-300"><%= b.service?.name || '—' %></td>
+          <td class="px-4 py-3">
+            <p class="text-sm"><%= new Date(b.date).toLocaleDateString('fr-FR') %></p>
+            <p class="text-gray-400 text-xs"><%= b.slot %>h</p>
+          </td>
+          <td class="px-4 py-3 text-gray-400"><%= b.postalCode %></td>
+          <td class="px-4 py-3">
+            <span class="badge-<%= b.status === 'new' ? 'new' : b.status === 'confirmed' ? 'confirm' : b.status === 'in_progress' ? 'progress' : b.status === 'done' ? 'done' : 'cancel' %>">
+              <%= STATUS_LABELS[b.status] || b.status %>
+            </span>
+          </td>
+          <td class="px-4 py-3 text-right font-semibold text-orange-400"><%= b.totalPrice.toFixed(2) %> €</td>
+          <td class="px-4 py-3">
+            <a href="/admin/bookings/<%= b.id %>" class="text-blue-400 hover:text-blue-300 text-xs whitespace-nowrap">Voir →</a>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../../partials/admin-foot') %>

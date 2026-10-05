@@ -1,0 +1,68 @@
+<%- include('../../partials/admin-head') %>
+
+<div class="mb-6">
+  <h2 class="text-2xl font-bold">Paramètres du site</h2>
+</div>
+
+<form method="POST" action="/admin/settings" class="space-y-6 max-w-2xl">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+  <div class="card p-6 space-y-5">
+    <h3 class="font-semibold text-gray-300 text-sm uppercase tracking-wide">Informations de l'entreprise</h3>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div>
+        <label class="form-label">Nom de l'entreprise</label>
+        <input class="form-input" type="text" name="company_name" value="<%= settings.company_name || '' %>">
+      </div>
+      <div>
+        <label class="form-label">Téléphone</label>
+        <input class="form-input" type="text" name="company_phone" value="<%= settings.company_phone || '' %>">
+      </div>
+      <div>
+        <label class="form-label">WhatsApp (format international)</label>
+        <input class="form-input" type="text" name="company_whatsapp" value="<%= settings.company_whatsapp || '' %>" placeholder="+33XXXXXXXXX">
+      </div>
+      <div>
+        <label class="form-label">Email de contact</label>
+        <input class="form-input" type="email" name="company_email" value="<%= settings.company_email || '' %>">
+      </div>
+    </div>
+    <div>
+      <label class="form-label">Adresse / Zone d'intervention</label>
+      <input class="form-input" type="text" name="company_address" value="<%= settings.company_address || '' %>">
+    </div>
+    <div>
+      <label class="form-label">Horaires d'ouverture</label>
+      <input class="form-input" type="text" name="opening_hours" value="<%= settings.opening_hours || '' %>" placeholder="Lundi–Samedi : 8h–19h">
+    </div>
+  </div>
+
+  <div class="card p-6 space-y-5">
+    <h3 class="font-semibold text-gray-300 text-sm uppercase tracking-wide">Réservation</h3>
+    <div>
+      <label class="form-label">Créneaux disponibles (séparés par des virgules)</label>
+      <input class="form-input" type="text" name="slots" value="<%= settings.slots || '' %>" placeholder="08:00,09:00,10:00,...">
+      <p class="text-xs text-gray-500 mt-1">Format HH:MM, ex: 08:00,09:00,10:00,11:00,14:00,15:00,16:00</p>
+    </div>
+  </div>
+
+  <div class="card p-6 space-y-5">
+    <h3 class="font-semibold text-gray-300 text-sm uppercase tracking-wide">Page d'accueil</h3>
+    <div>
+      <label class="form-label">Titre hero</label>
+      <input class="form-input" type="text" name="hero_title" value="<%= settings.hero_title || '' %>">
+    </div>
+    <div>
+      <label class="form-label">Sous-titre hero</label>
+      <input class="form-input" type="text" name="hero_subtitle" value="<%= settings.hero_subtitle || '' %>">
+    </div>
+    <div>
+      <label class="form-label">Méta description (SEO)</label>
+      <textarea class="form-input" name="meta_description" rows="3"><%= settings.meta_description || '' %></textarea>
+    </div>
+  </div>
+
+  <button type="submit" class="btn-primary">Enregistrer les paramètres</button>
+</form>
+
+<%- include('../../partials/admin-foot') %>

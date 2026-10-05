@@ -1,0 +1,57 @@
+<%- include('../../partials/admin-head') %>
+
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <h2 class="text-2xl font-bold">Zones & frais de déplacement</h2>
+    <p class="text-gray-400 text-sm mt-1">Frais facturés en supplément selon le département d'intervention</p>
+  </div>
+</div>
+
+<!-- Toggle affichage frais -->
+<form method="POST" action="/admin/zones/settings" class="mb-6">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="card p-5 max-w-xl flex items-center justify-between gap-4">
+    <div>
+      <p class="font-medium text-white">Afficher les frais de déplacement au client</p>
+      <p class="text-xs text-zinc-500 mt-0.5">Indique le montant des frais lors de la saisie du code postal sur le formulaire de réservation</p>
+    </div>
+    <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+      <input type="checkbox" name="show_travel_fee" value="1" class="sr-only peer"
+        <%= settings.show_travel_fee === '1' ? 'checked' : '' %>
+        onchange="this.form.submit()">
+      <div class="w-11 h-6 bg-zinc-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-400"></div>
+    </label>
+  </div>
+</form>
+
+<div class="card overflow-x-auto max-w-xl">
+  <table class="w-full text-sm">
+    <thead class="bg-gray-700/50">
+      <tr>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Dept.</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Nom</th>
+        <th class="px-4 py-3 text-gray-400 font-medium">Frais déplacement (€)</th>
+        <th class="px-4 py-3"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-700">
+      <% zones.forEach(z => { %>
+        <tr>
+          <td class="px-4 py-3 font-mono font-bold text-orange-400"><%= z.dept %></td>
+          <td class="px-4 py-3 font-medium"><%= z.name %></td>
+          <form method="POST" action="/admin/zones/<%= z.id %>" class="contents">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <td class="px-4 py-2">
+              <input type="number" name="travelFee" step="0.01" value="<%= z.travelFee.toFixed(2) %>" class="form-input py-1.5 text-sm w-24">
+            </td>
+            <td class="px-4 py-3">
+              <button type="submit" class="text-xs bg-blue-700 hover:bg-blue-600 text-white px-3 py-1.5 rounded transition-colors">Sauvegarder</button>
+            </td>
+          </form>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../../partials/admin-foot') %>

@@ -1,0 +1,14 @@
+    </div><!-- /flex-1 -->
+  </main><!-- /main -->
+</body>
+<script>
+  const menuBtn  = document.getElementById('menu-btn');
+  const sidebar  = document.getElementById('sidebar');
+  if (menuBtn && sidebar) {
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('hidden');
+      sidebar.classList.toggle('flex');
+    });
+  }
+</script>
+</html>

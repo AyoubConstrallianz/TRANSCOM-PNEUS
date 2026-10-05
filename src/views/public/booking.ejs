@@ -1,0 +1,293 @@
+<%- include('../partials/header') %>
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12 pb-24">
+  <div class="text-center mb-10">
+    <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Prendre rendez-vous</h1>
+    <p class="text-gray-400">Remplissez le formulaire — nous vous confirmons sous 30 min.</p>
+  </div>
+
+  <% if (errors && errors.length > 0) { %>
+    <div class="bg-red-900/50 border border-red-700 rounded-xl p-4 mb-8">
+      <p class="font-semibold text-red-300 mb-2">Veuillez corriger les erreurs suivantes :</p>
+      <ul class="list-disc list-inside text-red-400 text-sm space-y-1">
+        <% errors.forEach(e => { %><li><%= e.message %></li><% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form method="POST" action="/reservation" class="space-y-6" id="booking-form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+    <!-- Type de client -->
+    <div class="card p-6">
+      <h2 class="font-bold text-lg border-b border-gray-700 pb-3 mb-4">Vous êtes *</h2>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="flex items-center gap-3 p-4 rounded-lg cursor-pointer border-2 transition-all
+          has-[:checked]:border-yellow-400 has-[:checked]:bg-yellow-400/10 border-zinc-700 bg-zinc-800/50">
+          <input type="radio" name="clientType" value="particulier" class="sr-only"
+            <%= (!formData.clientType || formData.clientType === 'particulier') ? 'checked' : '' %> required>
+          <span class="text-2xl">🏠</span>
+          <div>
+            <p class="font-bold text-white">Particulier</p>
+            <p class="text-zinc-400 text-xs">Intervention à domicile</p>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 p-4 rounded-lg cursor-pointer border-2 transition-all
+          has-[:checked]:border-yellow-400 has-[:checked]:bg-yellow-400/10 border-zinc-700 bg-zinc-800/50">
+          <input type="radio" name="clientType" value="professionnel" class="sr-only"
+            <%= formData.clientType === 'professionnel' ? 'checked' : '' %>>
+          <span class="text-2xl">🏢</span>
+          <div>
+            <p class="font-bold text-white">Professionnel</p>
+            <p class="text-zinc-400 text-xs">Entreprise, garage, flotte</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Coordonnées -->
+    <div class="card p-6 space-y-4">
+      <h2 class="font-bold text-lg border-b border-gray-700 pb-3">Vos coordonnées</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="form-label" for="name">Nom complet *</label>
+          <input class="form-input" type="text" id="name" name="name" value="<%= formData.name || '' %>" required autocomplete="name">
+        </div>
+        <div>
+          <label class="form-label" for="phone">Téléphone *</label>
+          <input class="form-input" type="tel" id="phone" name="phone" value="<%= formData.phone || '' %>" required autocomplete="tel" placeholder="06 XX XX XX XX">
+        </div>
+      </div>
+      <div>
+        <label class="form-label" for="email">Email (pour confirmation)</label>
+        <input class="form-input" type="email" id="email" name="email" value="<%= formData.email || '' %>" autocomplete="email">
+      </div>
+      <div>
+        <label class="form-label" for="plate">Immatriculation (optionnel)</label>
+        <input class="form-input font-mono uppercase" type="text" id="plate" name="plate" value="<%= formData.plate || '' %>" placeholder="AB-123-CD">
+      </div>
+    </div>
+
+    <!-- Adresse d'intervention -->
+    <div class="card p-6 space-y-4">
+      <h2 class="font-bold text-lg border-b border-gray-700 pb-3">Adresse d'intervention</h2>
+      <div class="relative">
+        <label class="form-label" for="address">Adresse complète *</label>
+        <input class="form-input" type="text" id="address" name="address" value="<%= formData.address || '' %>" required placeholder="12 rue de la Paix, Paris" autocomplete="off">
+        <!-- Dropdown suggestions -->
+        <ul id="address-suggestions" class="absolute z-50 left-0 right-0 top-full mt-1 bg-zinc-800 border border-zinc-700 rounded-lg shadow-xl hidden max-h-60 overflow-y-auto"></ul>
+      </div>
+      <div>
+        <label class="form-label" for="postalCode">Code postal *</label>
+        <input class="form-input" type="text" id="postalCode" name="postalCode" value="<%= formData.postalCode || '' %>" required placeholder="75001" maxlength="5" autocomplete="postal-code">
+        <p id="zone-info" class="text-sm mt-2 hidden"></p>
+        <p class="text-xs text-gray-500 mt-1">Zones desservies : 75, 77, 78, 91, 92, 93, 94, 95</p>
+      </div>
+    </div>
+
+    <!-- Service -->
+    <div class="card p-6 space-y-4">
+      <h2 class="font-bold text-lg border-b border-gray-700 pb-3">Service souhaité *</h2>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <% services.forEach(s => { %>
+          <label class="flex items-center gap-3 p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors has-[:checked]:bg-red-900/50 has-[:checked]:border has-[:checked]:border-red-600">
+            <input type="radio" name="serviceId" value="<%= s.id %>" class="flex-shrink-0"
+              <%= (formData.serviceId == s.id || (typeof prefill !== 'undefined' && prefill.serviceId == s.id)) ? 'checked' : '' %> required>
+            <div class="flex-1 min-w-0">
+              <p class="font-medium text-sm"><%= s.name %></p>
+              <p class="text-yellow-400 text-xs"><%= s.priceLabel || 'Prix sur devis' %></p>
+            </div>
+          </label>
+        <% }) %>
+      </div>
+    </div>
+
+    <%# SECTION PNEUS CATALOGUE — DÉSACTIVÉE TEMPORAIREMENT %>
+    <input type="hidden" name="tireId" value="">
+    <input type="hidden" name="tireQty" value="4">
+
+    <!-- Date et créneau -->
+    <div class="card p-6 space-y-4">
+      <h2 class="font-bold text-lg border-b border-gray-700 pb-3">Date et créneau *</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="form-label" for="date">Date souhaitée *</label>
+          <input class="form-input" type="date" id="date" name="date" value="<%= formData.date || '' %>"
+            min="<%= new Date().toISOString().split('T')[0] %>" required>
+        </div>
+        <div>
+          <label class="form-label" for="slot">Créneau horaire *</label>
+          <select class="form-select" id="slot" name="slot" required>
+            <option value="">-- Choisir --</option>
+            <% slots.forEach(s => { %>
+              <option value="<%= s %>" <%= formData.slot === s ? 'selected' : '' %>><%= s %>h</option>
+            <% }) %>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Récapitulatif prix — masqué (tout est sur devis) -->
+    <div id="price-summary" class="hidden">
+      <div id="price-lines"></div>
+      <span id="price-total"></span>
+    </div>
+
+    <div class="flex items-start gap-3">
+      <input type="checkbox" id="terms" required class="mt-1 flex-shrink-0 w-4 h-4 rounded">
+      <label for="terms" class="text-sm text-gray-300 cursor-pointer">
+        J'accepte les <a href="/cgv" target="_blank" class="text-red-400 hover:text-red-300 underline">conditions générales de vente</a> et la <a href="/confidentialite" target="_blank" class="text-red-400 hover:text-red-300 underline">politique de confidentialité</a>.
+      </label>
+    </div>
+
+    <button type="submit" class="btn-primary w-full justify-center text-base py-4">
+      Envoyer ma demande de réservation
+    </button>
+  </form>
+</div>
+
+<script>
+(function() {
+  // ── Autocomplétion adresse (api-adresse.data.gouv.fr) ─────────────────────
+  const addrInput  = document.getElementById('address');
+  const addrList   = document.getElementById('address-suggestions');
+  const cpInputRef = document.getElementById('postalCode');
+  let addrTimer;
+
+  addrInput.addEventListener('input', () => {
+    clearTimeout(addrTimer);
+    const q = addrInput.value.trim();
+    if (q.length < 3) { addrList.classList.add('hidden'); return; }
+    addrTimer = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          'https://api-adresse.data.gouv.fr/search/?q=' + encodeURIComponent(q) +
+          '&limit=6&autocomplete=1'
+        );
+        const data = await res.json();
+        addrList.innerHTML = '';
+        if (!data.features || data.features.length === 0) {
+          addrList.classList.add('hidden'); return;
+        }
+        data.features.forEach(f => {
+          const li = document.createElement('li');
+          li.textContent = f.properties.label;
+          li.className = 'px-4 py-2.5 text-sm text-zinc-200 hover:bg-yellow-400/20 hover:text-yellow-400 cursor-pointer border-b border-zinc-700 last:border-0';
+          li.addEventListener('click', () => {
+            addrInput.value   = f.properties.name + (f.properties.housenumber ? '' : '') ;
+            // On met le label complet sans la ville (juste numéro + rue)
+            addrInput.value   = f.properties.label.split(',')[0].trim();
+            const cp = f.properties.postcode || '';
+            if (cp) {
+              cpInputRef.value = cp;
+              cpInputRef.dispatchEvent(new Event('input'));
+            }
+            addrList.classList.add('hidden');
+          });
+          addrList.appendChild(li);
+        });
+        addrList.classList.remove('hidden');
+      } catch { addrList.classList.add('hidden'); }
+    }, 300);
+  });
+
+  // Fermer si clic ailleurs
+  document.addEventListener('click', e => {
+    if (!addrInput.contains(e.target) && !addrList.contains(e.target)) {
+      addrList.classList.add('hidden');
+    }
+  });
+
+  // ── Code postal ─────────────────────────────────────────────────────────────
+  const cpInput   = document.getElementById('postalCode');
+  const zoneInfo  = document.getElementById('zone-info');
+  const tireSelect= document.getElementById('tire-select');
+  const tireQtyB  = document.getElementById('tire-qty-block');
+  const summary   = document.getElementById('price-summary');
+  const lines     = document.getElementById('price-lines');
+  const total     = document.getElementById('price-total');
+
+  let zoneData    = null;
+  let serviceData = null;
+
+  // Map services depuis le DOM
+  const serviceMap = {};
+  <% services.forEach(s => { %>
+    serviceMap[<%= s.id %>] = { name: '<%= s.name.replace(/'/g, "\\'") %>', price: <%= s.price %> };
+  <% }) %>
+
+  const tireMap = {};
+  <% tires.forEach(t => { %>
+    tireMap[<%= t.id %>] = { price: <%= t.sellPrice %> };
+  <% }) %>
+
+  // Vérification code postal
+  let cpTimer;
+  cpInput.addEventListener('input', () => {
+    clearTimeout(cpTimer);
+    const cp = cpInput.value.trim();
+    if (cp.length === 5) {
+      cpTimer = setTimeout(async () => {
+        try {
+          const r = await fetch('/api/zone/' + cp);
+          const d = await r.json();
+          zoneData = d;
+          if (d.valid) {
+            const showFee = <%= settings.show_travel_fee === '1' ? 'true' : 'false' %>;
+            zoneInfo.textContent = showFee
+              ? `✓ ${d.deptName} (${d.dept}) — Frais de déplacement : ${d.travelFee} €`
+              : `✓ Zone desservie : ${d.deptName} (${d.dept})`;
+            zoneInfo.className = 'text-sm mt-2 text-green-400';
+          } else {
+            zoneInfo.textContent = `✗ ${d.message}`;
+            zoneInfo.className = 'text-sm mt-2 text-red-400';
+          }
+          zoneInfo.classList.remove('hidden');
+          updateSummary();
+        } catch {}
+      }, 400);
+    } else {
+      zoneInfo.classList.add('hidden');
+      zoneData = null;
+    }
+  });
+
+  // Affichage qté pneus
+  tireSelect.addEventListener('change', () => {
+    const hasT = !!tireSelect.value;
+    tireQtyB.classList.toggle('hidden', !hasT);
+    updateSummary();
+  });
+
+  // Mise à jour au changement service / qté
+  document.querySelectorAll('[name="serviceId"]').forEach(r => r.addEventListener('change', updateSummary));
+  document.querySelectorAll('[name="tireQty"]').forEach(s => s.addEventListener('change', updateSummary));
+
+  function updateSummary() {
+    const sid = document.querySelector('[name="serviceId"]:checked')?.value;
+    const tid = tireSelect.value;
+    const qty = parseInt(document.querySelector('[name="tireQty"]')?.value || 1);
+    const tf  = zoneData?.travelFee || 0;
+
+    const svc  = sid ? serviceMap[sid]  : null;
+    const tire = tid ? tireMap[parseInt(tid)] : null;
+
+    let t = tf;
+    const linesHtml = [];
+
+    linesHtml.push(`<div class="flex justify-between"><span>Frais déplacement</span><span>${tf} €</span></div>`);
+    if (svc)  { linesHtml.push(`<div class="flex justify-between"><span>${svc.name}</span><span>${svc.price} €</span></div>`); t += svc.price; }
+    if (tire) { linesHtml.push(`<div class="flex justify-between"><span>Pneus (× ${qty})</span><span>${(tire.price * qty).toFixed(2)} €</span></div>`); t += tire.price * qty; }
+
+    lines.innerHTML = linesHtml.join('');
+    total.textContent = t.toFixed(2) + ' €';
+    summary.classList.remove('hidden');
+  }
+
+  // Init si pré-rempli
+  if (tireSelect.value) tireQtyB.classList.remove('hidden');
+  if (document.querySelector('[name="serviceId"]:checked')) updateSummary();
+})();
+</script>
+
+<%- include('../partials/footer') %>

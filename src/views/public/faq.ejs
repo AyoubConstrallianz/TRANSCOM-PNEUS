@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12 pb-24">
+  <h1 class="text-3xl font-extrabold mb-2">Questions fréquentes</h1>
+  <p class="text-gray-400 mb-10">Tout ce qu'il faut savoir avant de commander.</p>
+
+  <% const faqs = [
+    { q: 'Intervenez-vous chez moi ou en entreprise ?', a: 'Nous intervenons à votre domicile, sur votre lieu de travail, dans un parking — partout en Île-de-France où votre véhicule est garé.' },
+    { q: 'Quels sont vos délais d\'intervention ?', a: 'En général, nous intervenons dans les 2h pour les urgences. Pour les interventions planifiées, nous proposons des créneaux du matin (8h) au soir (18h), 7j/7.' },
+    { q: 'Quels départements couvrez-vous ?', a: 'Nous couvrons toute l\'Île-de-France : Paris (75), Seine-et-Marne (77), Yvelines (78), Essonne (91), Hauts-de-Seine (92), Seine-Saint-Denis (93), Val-de-Marne (94) et Val-d\'Oise (95).' },
+    { q: 'Comment sont calculés les frais de déplacement ?', a: 'Les frais varient selon le département. Paris (75) est gratuit. Les autres départements sont facturés entre 5 € et 30 €. Le montant exact est affiché lors de la réservation.' },
+    { q: 'Puis-je fournir mes propres pneus ?', a: 'Oui, vous pouvez tout à fait fournir vos propres pneus. Dans ce cas, sélectionnez uniquement le service "Montage à domicile" sans pneu dans notre catalogue.' },
+    { q: 'Quels modes de paiement acceptez-vous ?', a: 'Nous acceptons le paiement en espèces, par carte bancaire (via terminal mobile) et par virement. Le règlement se fait sur place après l\'intervention.' },
+    { q: 'Mon devis est-il gratuit ?', a: 'Oui, le devis est 100% gratuit et sans engagement. Le calcul du prix total est affiché directement dans le formulaire de réservation avant validation.' },
+    { q: 'Quel équipement utilisez-vous ?', a: 'Nos techniciens sont équipés de monte-pneus portables, d\'équilibreuses et de tout le matériel professionnel nécessaire pour une intervention de qualité.' },
+    { q: 'Puis-je annuler ou modifier une réservation ?', a: 'Oui, appelez-nous dès que possible pour annuler ou modifier. Aucune pénalité n\'est appliquée si vous nous prévenez au moins 2h avant l\'intervention.' },
+    { q: 'Proposez-vous une garantie sur vos pneus ?', a: 'Oui, tous les pneus vendus bénéficient de la garantie fabricant. En cas de défaut, nous nous engageons à résoudre le problème.' },
+  ]; %>
+
+  <div class="space-y-2" x-data="{ open: null }">
+    <% faqs.forEach((f, i) => { %>
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-gray-700/50 transition-colors rounded-xl">
+          <span class="font-semibold pr-4"><%= f.q %></span>
+          <svg class="w-5 h-5 text-gray-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-gray-300 leading-relaxed"><%= f.a %></div>
+      </details>
+    <% }) %>
+  </div>
+
+  <div class="text-center mt-12">
+    <p class="text-gray-400 mb-4">Vous n'avez pas trouvé votre réponse ?</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="tel:<%= phone %>" class="btn-primary">📞 Nous appeler</a>
+      <a href="/contact" class="btn-outline">Nous écrire</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

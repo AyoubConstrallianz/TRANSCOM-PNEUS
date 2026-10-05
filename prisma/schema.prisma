@@ -1,0 +1,123 @@
+// Prisma schema — TRANSCOM PNEUS
+// dev: SQLite | prod: PostgreSQL (changer provider + DATABASE_URL)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Utilisateurs admin ───────────────────────────────────────────────────────
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  passwordHash  String
+  name          String
+  role          String   @default("admin") // admin | superadmin
+  loginAttempts Int      @default(0)
+  lockedUntil   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ─── Pneus ────────────────────────────────────────────────────────────────────
+model Tire {
+  id          Int      @id @default(autoincrement())
+  brand       String                  // ex: Michelin
+  model       String                  // ex: Pilot Sport 4
+  width       Int                     // ex: 205
+  ratio       Int                     // ex: 55
+  diameter    Int                     // ex: 16
+  season      String                  // summer | winter | allseason
+  buyPrice    Float
+  sellPrice   Float
+  stock       Int      @default(0)
+  imageUrl    String?
+  description String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bookings    Booking[]
+}
+
+// ─── Services ─────────────────────────────────────────────────────────────────
+model Service {
+  id          Int      @id @default(autoincrement())
+  category    String   @default("Général") // ex: "Montage", "Soudure", "Achat-vente"
+  name        String
+  description String?
+  price       Float    @default(0)
+  priceLabel  String   @default("Prix sur devis") // texte affiché à la place du prix
+  duration    Int      @default(30)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bookings    Booking[]
+}
+
+// ─── Zones / frais de déplacement ─────────────────────────────────────────────
+model Zone {
+  id         Int      @id @default(autoincrement())
+  dept       String   @unique // "75", "77", "78", "91", "92", "93", "94", "95"
+  name       String           // ex: Paris
+  travelFee  Float            // frais de déplacement en €
+  bookings   Booking[]
+}
+
+// ─── Clients ──────────────────────────────────────────────────────────────────
+model Customer {
+  id         Int      @id @default(autoincrement())
+  name       String
+  phone      String
+  email      String?
+  postalCode String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  bookings   Booking[]
+}
+
+// ─── Réservations ─────────────────────────────────────────────────────────────
+model Booking {
+  id          Int      @id @default(autoincrement())
+  status      String   @default("new") // new | confirmed | in_progress | done | cancelled
+  customer    Customer @relation(fields: [customerId], references: [id])
+  customerId  Int
+  tire        Tire?    @relation(fields: [tireId], references: [id])
+  tireId      Int?
+  service     Service? @relation(fields: [serviceId], references: [id])
+  serviceId   Int?
+  zone        Zone?    @relation(fields: [zoneId], references: [id])
+  zoneId      Int?
+  date        DateTime
+  slot        String              // ex: "09:00-10:00"
+  address     String
+  postalCode  String
+  plate       String?             // immatriculation
+  tireQty     Int      @default(4)
+  travelFee   Float    @default(0)
+  totalPrice  Float    @default(0)
+  clientType  String   @default("particulier") // particulier | professionnel
+  notes       String?             // notes internes
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── Paramètres ───────────────────────────────────────────────────────────────
+model Setting {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+}
+
+// ─── Avis clients ─────────────────────────────────────────────────────────────
+model Review {
+  id        Int      @id @default(autoincrement())
+  name      String
+  rating    Int      @default(5) // 1-5
+  comment   String
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

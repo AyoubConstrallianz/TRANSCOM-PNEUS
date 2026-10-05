@@ -1,0 +1,43 @@
+<%- include('../../partials/admin-head') %>
+
+<div class="mb-6">
+  <h2 class="text-2xl font-bold">Clients</h2>
+</div>
+
+<form method="GET" class="card p-4 mb-6 flex gap-3">
+  <input class="form-input flex-1 py-2" type="text" name="search" placeholder="Nom, téléphone, email..." value="<%= query.search || '' %>">
+  <button type="submit" class="btn-primary py-2 px-4 text-sm">Rechercher</button>
+  <a href="/admin/customers" class="btn-outline py-2 px-4 text-sm">Réinitialiser</a>
+</form>
+
+<div class="card overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead class="bg-gray-700/50">
+      <tr>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Nom</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Téléphone</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">Email</th>
+        <th class="text-left px-4 py-3 text-gray-400 font-medium">CP</th>
+        <th class="text-right px-4 py-3 text-gray-400 font-medium">Réservations</th>
+        <th class="px-4 py-3"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-700">
+      <% if (customers.length === 0) { %>
+        <tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">Aucun client trouvé.</td></tr>
+      <% } %>
+      <% customers.forEach(c => { %>
+        <tr class="hover:bg-gray-700/30 transition-colors">
+          <td class="px-4 py-3 font-medium"><%= c.name %></td>
+          <td class="px-4 py-3"><a href="tel:<%= c.phone %>" class="text-red-400 hover:text-red-300"><%= c.phone %></a></td>
+          <td class="px-4 py-3 text-gray-400"><%= c.email || '—' %></td>
+          <td class="px-4 py-3 text-gray-400"><%= c.postalCode %></td>
+          <td class="px-4 py-3 text-right"><span class="badge-confirm"><%= c._count.bookings %></span></td>
+          <td class="px-4 py-3"><a href="/admin/customers/<%= c.id %>" class="text-blue-400 hover:text-blue-300 text-xs">Voir →</a></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../../partials/admin-foot') %>

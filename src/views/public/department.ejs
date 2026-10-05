@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 py-12 pb-24">
+  <!-- Hero département -->
+  <div class="bg-gradient-to-r from-red-900/30 to-gray-800 rounded-2xl p-8 mb-12">
+    <div class="max-w-2xl">
+      <span class="text-5xl font-extrabold text-red-500"><%= dept %></span>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
+        Pneus à domicile — <%= deptName %>
+      </h1>
+      <p class="text-gray-300 text-lg mb-6">TRANSCOM PNEUS intervient dans tout le <%= dept %> – <%= deptName %> pour le montage, la réparation et l'équilibrage de vos pneus.</p>
+      <% if (zone) { %>
+        <p class="text-sm text-gray-400 mb-6">
+          Frais de déplacement dans le <%= dept %> :
+          <strong class="text-orange-400"><%= zone.travelFee === 0 ? 'Gratuit' : zone.travelFee + ' €' %></strong>
+        </p>
+      <% } %>
+      <a href="/reservation?cp=<%= dept %>" class="btn-primary text-base px-8 py-4">Prendre rendez-vous dans le <%= dept %></a>
+    </div>
+  </div>
+
+  <!-- Avantages locaux -->
+  <div class="grid md:grid-cols-3 gap-6 mb-12">
+    <div class="card p-5">
+      <div class="text-red-400 text-2xl mb-2">📍</div>
+      <h3 class="font-bold mb-1">Couverture totale du <%= dept %></h3>
+      <p class="text-gray-400 text-sm">Nous intervenons dans toutes les communes du département <%= dept %> – <%= deptName %>.</p>
+    </div>
+    <div class="card p-5">
+      <div class="text-orange-400 text-2xl mb-2">⚡</div>
+      <h3 class="font-bold mb-1">Réponse rapide</h3>
+      <p class="text-gray-400 text-sm">Dépannage urgent en moins de 2h. Créneaux disponibles 7j/7.</p>
+    </div>
+    <div class="card p-5">
+      <div class="text-green-400 text-2xl mb-2">💰</div>
+      <h3 class="font-bold mb-1">Prix transparents</h3>
+      <p class="text-gray-400 text-sm">Frais de déplacement : <strong class="text-white"><%= zone ? (zone.travelFee === 0 ? 'Gratuit' : zone.travelFee + ' €') : 'voir devis' %></strong>. Sans surprise.</p>
+    </div>
+  </div>
+
+  <!-- Autres zones -->
+  <div class="card p-6">
+    <h2 class="font-bold mb-4">Autres départements desservis</h2>
+    <div class="flex flex-wrap gap-3">
+      <% Object.entries(depts).filter(([d]) => d !== dept).forEach(([d, n]) => { %>
+        <a href="/pneus-domicile/<%= d %>" class="bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors">
+          <strong><%= d %></strong> – <%= n %>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

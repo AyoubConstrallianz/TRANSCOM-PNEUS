@@ -1,0 +1,94 @@
+<%- include('../partials/header') %>
+
+<!-- ─── Hero ──────────────────────────────────────────────────────────────────── -->
+<section class="bg-black border-b border-zinc-800 py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+    <p class="text-yellow-400 font-bold uppercase tracking-widest text-sm mb-2">Ce qu'on fait</p>
+    <h1 class="text-4xl md:text-5xl font-black text-white uppercase mb-4">Nos services</h1>
+    <p class="text-zinc-400 max-w-2xl mx-auto text-lg">Nos techniciens se déplacent directement chez vous avec le matériel professionnel. Devis gratuit, intervention rapide.</p>
+  </div>
+</section>
+
+<!-- ─── Services par catégorie ──────────────────────────────────────────────── -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 space-y-16">
+
+  <%
+    // Grouper les services par catégorie
+    const grouped = {};
+    services.forEach(s => {
+      const cat = s.category || 'Général';
+      if (!grouped[cat]) grouped[cat] = [];
+      grouped[cat].push(s);
+    });
+    const catIcons = {
+      'Montage de pneu à domicile': '🛞',
+      'Soudure': '🔧',
+      'Achat-vente': '🏪',
+      'Général': '⚙️',
+    };
+  %>
+
+  <% Object.entries(grouped).forEach(([cat, items]) => { %>
+  <div>
+    <!-- Titre catégorie -->
+    <div class="flex items-center gap-4 mb-8">
+      <span class="text-4xl"><%= catIcons[cat] || '⚙️' %></span>
+      <div>
+        <h2 class="text-2xl md:text-3xl font-black text-white uppercase"><%= cat %></h2>
+        <div class="w-16 h-1 bg-yellow-400 mt-2 rounded-full"></div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <% items.forEach(s => { %>
+        <div class="card p-5 flex flex-col hover:border-yellow-400/50 transition-colors group">
+          <h3 class="font-bold text-white group-hover:text-yellow-400 transition-colors mb-2"><%= s.name %></h3>
+          <% if (s.description) { %>
+            <p class="text-zinc-400 text-sm leading-relaxed flex-1"><%= s.description %></p>
+          <% } %>
+          <div class="flex items-center justify-between mt-4 pt-3 border-t border-zinc-800">
+            <span class="text-yellow-400 font-bold text-sm"><%= s.priceLabel || 'Prix sur devis' %></span>
+            <a href="/reservation?serviceId=<%= s.id %>" class="text-xs text-zinc-400 hover:text-yellow-400 font-semibold transition-colors">Réserver →</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  <% }) %>
+
+  <!-- Processus -->
+  <div class="card p-8">
+    <div class="text-center mb-10">
+      <p class="text-yellow-400 font-bold uppercase tracking-widest text-sm mb-2">Simple et rapide</p>
+      <h2 class="text-2xl md:text-3xl font-black text-white uppercase">Comment ça se passe ?</h2>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-6 text-center">
+      <div>
+        <div class="w-12 h-12 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-400 font-black text-lg">1</div>
+        <h3 class="font-bold text-white mb-1">Réservation en ligne</h3>
+        <p class="text-zinc-400 text-sm">Choisissez votre service, date et créneau en 2 minutes.</p>
+      </div>
+      <div>
+        <div class="w-12 h-12 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-400 font-black text-lg">2</div>
+        <h3 class="font-bold text-white mb-1">Confirmation</h3>
+        <p class="text-zinc-400 text-sm">Vous recevez un email de confirmation avec le récapitulatif.</p>
+      </div>
+      <div>
+        <div class="w-12 h-12 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-400 font-black text-lg">3</div>
+        <h3 class="font-bold text-white mb-1">Intervention</h3>
+        <p class="text-zinc-400 text-sm">Notre technicien arrive à l'heure avec tout le matériel.</p>
+      </div>
+      <div>
+        <div class="w-12 h-12 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-400 font-black text-lg">✓</div>
+        <h3 class="font-bold text-white mb-1">C'est fait !</h3>
+        <p class="text-zinc-400 text-sm">Votre véhicule est prêt. Vous réglez sur place.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <a href="/reservation" class="btn-primary text-base px-10 py-4">Prendre rendez-vous maintenant</a>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

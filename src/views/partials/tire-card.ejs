@@ -1,0 +1,41 @@
+<div class="card hover:border-yellow-400/50 transition-all group bg-zinc-900">
+  <a href="/catalogue/<%= tire.id %>">
+    <div class="aspect-square bg-zinc-800 overflow-hidden relative">
+      <% if (tire.imageUrl) { %>
+        <img src="<%= tire.imageUrl %>" alt="<%= tire.brand %> <%= tire.model %>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+      <% } else { %>
+        <div class="w-full h-full flex items-center justify-center">
+          <svg class="w-20 h-20 text-yellow-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="9" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke-width="1.5"/>
+            <line x1="12" y1="3" x2="12" y2="9" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="21" stroke-width="1.5"/>
+            <line x1="3" y1="12" x2="9" y2="12" stroke-width="1.5"/><line x1="15" y1="12" x2="21" y2="12" stroke-width="1.5"/>
+          </svg>
+        </div>
+      <% } %>
+      <!-- Badge saison -->
+      <% const seasonLabel = { summer: 'Été', winter: 'Hiver', allseason: '4 saisons' }; %>
+      <% const seasonColor = { summer: 'bg-orange-500', winter: 'bg-blue-500', allseason: 'bg-green-600' }; %>
+      <span class="absolute top-2 left-2 text-white text-xs font-bold px-2 py-0.5 rounded-full <%= seasonColor[tire.season] || 'bg-zinc-600' %>">
+        <%= seasonLabel[tire.season] || tire.season %>
+      </span>
+      <% if (tire.stock > 0 && tire.stock <= 3) { %>
+        <span class="absolute top-2 right-2 bg-yellow-400 text-black text-xs font-bold px-2 py-0.5 rounded-full">
+          <%= tire.stock %> restant(s)
+        </span>
+      <% } %>
+    </div>
+  </a>
+  <div class="p-4">
+    <p class="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-1"><%= tire.brand %></p>
+    <h3 class="font-bold text-white group-hover:text-yellow-400 transition-colors">
+      <a href="/catalogue/<%= tire.id %>"><%= tire.model %></a>
+    </h3>
+    <p class="text-zinc-500 text-sm font-mono mt-0.5"><%= tire.width %>/<%= tire.ratio %> R<%= tire.diameter %></p>
+    <div class="flex items-center justify-between mt-4">
+      <span class="text-2xl font-black text-yellow-400"><%= tire.sellPrice %> <span class="text-base font-bold">€</span></span>
+      <a href="/reservation?tireId=<%= tire.id %>" class="text-xs bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-3 py-1.5 rounded-lg transition-colors uppercase tracking-wide">
+        Commander
+      </a>
+    </div>
+  </div>
+</div>
