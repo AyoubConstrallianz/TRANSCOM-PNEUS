@@ -12,7 +12,8 @@
     "db:seed": "node prisma/seed.js",
     "db:studio": "prisma studio",
     "db:reset": "prisma db push --force-reset && node prisma/seed.js",
-    "setup": "npm install && npm run db:push && npm run db:seed && npm run build:css"
+    "setup": "npm install && npm run db:push && npm run db:seed && npm run build:css",
+    "postinstall": "prisma generate && tailwindcss -i ./src/css/input.css -o ./public/css/tailwind.css --minify"
   },
   "dependencies": {
     "@prisma/client": "^5.10.0",
@@ -31,12 +32,12 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.12",
     "sharp": "^0.33.3",
-    "winston": "^3.12.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.0",
+    "winston": "^3.12.0",
     "prisma": "^5.10.0",
     "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   },
   "engines": {
     "node": ">=18.0.0"
