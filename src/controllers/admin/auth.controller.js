@@ -1,5 +1,5 @@
 // controllers/admin/auth.controller.js
-const bcrypt       = require('bcrypt');
+const bcrypt       = require('bcryptjs');
 const { PrismaClient } = require('@prisma/client');
 const { validate, adminLoginSchema } = require('../../utils/validators');
 const logger       = require('../../utils/logger');
