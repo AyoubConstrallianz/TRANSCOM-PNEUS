@@ -4,10 +4,14 @@ const path   = require('path');
 const crypto = require('crypto');
 const fs     = require('fs');
 
-const UPLOAD_DIR = path.join(__dirname, '../../public/uploads');
+// Sur Vercel (read-only filesystem), utiliser /tmp ; sinon public/uploads
+const UPLOAD_DIR = process.env.NODE_ENV === 'production'
+  ? '/tmp/uploads'
+  : path.join(__dirname, '../../public/uploads');
 
-// S'assurer que le répertoire existe
-if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+try {
+  if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+} catch (_) { /* lecture seule en prod — uploads désactivés */ }
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
