@@ -1,6 +1,6 @@
 // controllers/public/legal.controller.js
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+
+const prisma = require('../../utils/prisma');
 
 async function getSettings() {
   const rows = await prisma.setting.findMany();

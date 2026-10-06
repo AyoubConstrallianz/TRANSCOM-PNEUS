@@ -1,6 +1,6 @@
 // controllers/public/seo.controller.js
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+
+const prisma = require('../../utils/prisma');
 const APP_URL = process.env.APP_URL || 'https://transcompneus.fr';
 const DEPTS = ['75','77','78','91','92','93','94','95'];
 

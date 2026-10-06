@@ -1,7 +1,7 @@
 // controllers/admin/dashboard.controller.js
-const { PrismaClient } = require('@prisma/client');
+
 const { getTodayBookings } = require('../../services/booking.service');
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 
 exports.dashboard = async (req, res) => {
   try {

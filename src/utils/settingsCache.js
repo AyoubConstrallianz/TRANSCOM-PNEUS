@@ -1,6 +1,6 @@
 // utils/settingsCache.js — Cache en mémoire des paramètres DB
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+
+const prisma = require('./prisma');
 
 let cache = null;
 

@@ -1,7 +1,7 @@
 // services/booking.service.js
-const { PrismaClient } = require('@prisma/client');
+
 const { getZoneByPostalCode } = require('./zone.service');
-const prisma = new PrismaClient();
+const prisma = require('../utils/prisma');
 
 const STATUS_LABELS = {
   new:         'Nouveau',

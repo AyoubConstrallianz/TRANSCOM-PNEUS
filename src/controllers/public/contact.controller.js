@@ -1,8 +1,8 @@
 // controllers/public/contact.controller.js
-const { PrismaClient } = require('@prisma/client');
+
 const { validate, contactSchema } = require('../../utils/validators');
 const { sendContactMessage } = require('../../services/email.service');
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 
 async function getSettings() {
   const rows = await prisma.setting.findMany();

@@ -1,7 +1,7 @@
 // controllers/admin/settings.controller.js
-const { PrismaClient } = require('@prisma/client');
+
 const { refresh } = require('../../utils/settingsCache');
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 
 exports.index = async (req, res) => {
   const rows = await prisma.setting.findMany();

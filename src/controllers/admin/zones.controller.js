@@ -1,7 +1,7 @@
 // controllers/admin/zones.controller.js
-const { PrismaClient } = require('@prisma/client');
+
 const { refresh } = require('../../utils/settingsCache');
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 
 exports.index = async (req, res) => {
   const [zones, settings] = await Promise.all([

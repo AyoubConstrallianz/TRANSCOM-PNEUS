@@ -1,6 +1,6 @@
 // services/zone.service.js — Validation et frais IDF
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+
+const prisma = require('../utils/prisma');
 
 const IDF_DEPTS = ['75', '77', '78', '91', '92', '93', '94', '95'];
 

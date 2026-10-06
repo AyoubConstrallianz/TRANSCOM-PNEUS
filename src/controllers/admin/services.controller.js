@@ -1,7 +1,7 @@
 // controllers/admin/services.controller.js
-const { PrismaClient } = require('@prisma/client');
+
 const { validate, serviceSchema } = require('../../utils/validators');
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 
 exports.index = async (req, res) => {
   const services = await prisma.service.findMany({ orderBy: { name: 'asc' } });

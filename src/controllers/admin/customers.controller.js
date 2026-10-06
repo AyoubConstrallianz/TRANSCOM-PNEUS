@@ -1,7 +1,7 @@
 // controllers/admin/customers.controller.js
-const { PrismaClient } = require('@prisma/client');
+
 const { STATUS_LABELS } = require('../../services/booking.service');
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 
 exports.index = async (req, res) => {
   const { search } = req.query;

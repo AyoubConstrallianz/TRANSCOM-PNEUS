@@ -1,12 +1,12 @@
 // controllers/public/booking.controller.js
-const { PrismaClient } = require('@prisma/client');
+
 const { validate, bookingSchema } = require('../../utils/validators');
 const { createBooking } = require('../../services/booking.service');
 const { getZoneByPostalCode, isIleDeFrance } = require('../../services/zone.service');
 const { sendBookingConfirmation } = require('../../services/email.service');
 const logger = require('../../utils/logger');
 
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 
 exports.form = async (req, res) => {
   try {

@@ -1,6 +1,6 @@
 // controllers/public/home.controller.js
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+
+const prisma = require('../../utils/prisma');
 
 const DEPT_NAMES = {
   '75': 'Paris', '77': 'Seine-et-Marne', '78': 'Yvelines',

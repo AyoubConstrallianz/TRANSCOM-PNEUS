@@ -1,7 +1,7 @@
 // controllers/admin/bookings.controller.js
-const { PrismaClient } = require('@prisma/client');
+
 const { exportCSV, STATUS_LABELS } = require('../../services/booking.service');
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 
 const include = { customer: true, tire: true, service: true, zone: true };
 

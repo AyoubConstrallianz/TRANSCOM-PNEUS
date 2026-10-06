@@ -1,11 +1,11 @@
 // controllers/admin/tires.controller.js
-const { PrismaClient } = require('@prisma/client');
+
 const path   = require('path');
 const fs     = require('fs');
 const { validate, tireSchema, bulkPriceSchema } = require('../../utils/validators');
 const logger = require('../../utils/logger');
 
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 
 exports.index = async (req, res) => {
   const { brand, season, search, lowstock } = req.query;

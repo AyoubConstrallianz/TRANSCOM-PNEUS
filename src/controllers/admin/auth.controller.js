@@ -1,10 +1,10 @@
 // controllers/admin/auth.controller.js
 const bcrypt       = require('bcryptjs');
-const { PrismaClient } = require('@prisma/client');
+
 const { validate, adminLoginSchema } = require('../../utils/validators');
 const logger       = require('../../utils/logger');
 
-const prisma = new PrismaClient();
+const prisma = require('../../utils/prisma');
 const MAX_ATTEMPTS = 5;
 const LOCK_MINUTES = 15;
 
