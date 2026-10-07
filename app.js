@@ -18,6 +18,9 @@ const adminRoutes        = require('./src/routes/admin.routes');
 
 const app = express();
 
+// ── Proxy Vercel (nécessaire pour req.secure, cookies HTTPS, rate-limit) ──────
+app.set('trust proxy', 1);
+
 // ── Vues EJS ──────────────────────────────────────────────────────────────────
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
