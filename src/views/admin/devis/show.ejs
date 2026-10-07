@@ -1,0 +1,141 @@
+<%- include('../../partials/admin-head') %>
+
+<div class="flex items-center justify-between mb-6">
+  <div class="flex items-center gap-3">
+    <a href="/admin/devis" class="text-zinc-400 hover:text-white">← Devis</a>
+    <h1 class="text-2xl font-bold text-white"><%= devis.reference %></h1>
+    <% const colors = { brouillon: 'bg-zinc-700 text-zinc-300', 'envoyé': 'bg-blue-500/20 text-blue-400', 'accepté': 'bg-green-500/20 text-green-400', 'refusé': 'bg-red-500/20 text-red-400' }; %>
+    <span class="px-3 py-1 rounded-full text-sm font-semibold <%= colors[devis.status] || 'bg-zinc-700 text-zinc-300' %>">
+      <%= devis.status %>
+    </span>
+  </div>
+  <div class="flex gap-3">
+    <!-- Envoyer par email -->
+    <form action="/admin/devis/<%= devis.id %>/send" method="POST" onsubmit="return confirm('Envoyer le devis à <%= devis.clientEmail %> ?')">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="btn-primary flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Envoyer par email
+      </button>
+    </form>
+    <!-- Supprimer -->
+    <form action="/admin/devis/<%= devis.id %>/delete" method="POST" onsubmit="return confirm('Supprimer ce devis ?')">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="btn-secondary text-red-400 hover:text-red-300">Supprimer</button>
+    </form>
+  </div>
+</div>
+
+<% if (typeof success !== 'undefined' && success) { %>
+  <div class="bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-3 rounded-lg mb-6"><%= success %></div>
+<% } %>
+<% if (typeof error !== 'undefined' && error) { %>
+  <div class="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg mb-6"><%= error %></div>
+<% } %>
+
+<div class="grid md:grid-cols-3 gap-6">
+
+  <!-- Détail devis -->
+  <div class="md:col-span-2 space-y-6">
+
+    <!-- Client -->
+    <div class="card p-6">
+      <h2 class="text-yellow-400 font-semibold mb-4">Client</h2>
+      <div class="grid sm:grid-cols-2 gap-3 text-sm">
+        <div><span class="text-zinc-500">Nom</span><p class="text-white font-medium"><%= devis.clientName %></p></div>
+        <div><span class="text-zinc-500">Email</span><p class="text-white"><a href="mailto:<%= devis.clientEmail %>" class="text-yellow-400 hover:underline"><%= devis.clientEmail %></a></p></div>
+        <% if (devis.clientPhone) { %>
+        <div><span class="text-zinc-500">Téléphone</span><p class="text-white"><%= devis.clientPhone %></p></div>
+        <% } %>
+        <div><span class="text-zinc-500">Type</span><p class="text-white capitalize"><%= devis.clientType %></p></div>
+        <% if (devis.clientAddress) { %>
+        <div class="sm:col-span-2"><span class="text-zinc-500">Adresse</span><p class="text-white"><%= devis.clientAddress %></p></div>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Prestations -->
+    <div class="card p-6">
+      <h2 class="text-yellow-400 font-semibold mb-4">Prestations</h2>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-zinc-400 text-xs uppercase border-b border-zinc-800">
+            <th class="pb-2 text-left">Description</th>
+            <th class="pb-2 text-center">Qté</th>
+            <th class="pb-2 text-right">Prix unit.</th>
+            <th class="pb-2 text-right">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% devis.itemsParsed.forEach(it => { %>
+          <tr class="border-b border-zinc-800/40">
+            <td class="py-2 text-white"><%= it.description %></td>
+            <td class="py-2 text-center text-zinc-300"><%= it.qty %></td>
+            <td class="py-2 text-right text-zinc-300"><%= Number(it.unitPrice).toFixed(2) %> €</td>
+            <td class="py-2 text-right font-semibold text-white"><%= (it.qty * it.unitPrice).toFixed(2) %> €</td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <div class="mt-4 flex flex-col items-end gap-1 text-sm border-t border-zinc-800 pt-4">
+        <% if (devis.travelFee > 0) { %>
+        <div class="flex gap-8 text-zinc-400">
+          <span>Frais de déplacement</span>
+          <span class="text-white"><%= Number(devis.travelFee).toFixed(2) %> €</span>
+        </div>
+        <% } %>
+        <div class="flex gap-8 text-lg font-bold">
+          <span class="text-yellow-400">TOTAL TTC</span>
+          <span class="text-white"><%= Number(devis.total).toFixed(2) %> €</span>
+        </div>
+      </div>
+    </div>
+
+    <% if (devis.notes) { %>
+    <div class="card p-6">
+      <h2 class="text-yellow-400 font-semibold mb-2">Notes</h2>
+      <p class="text-zinc-300 text-sm whitespace-pre-line"><%= devis.notes %></p>
+    </div>
+    <% } %>
+  </div>
+
+  <!-- Panneau latéral -->
+  <div class="space-y-4">
+    <!-- Infos -->
+    <div class="card p-5 text-sm space-y-3">
+      <h2 class="text-yellow-400 font-semibold">Informations</h2>
+      <div><span class="text-zinc-500">Référence</span><p class="font-mono text-white"><%= devis.reference %></p></div>
+      <div><span class="text-zinc-500">Créé le</span><p class="text-white"><%= new Date(devis.createdAt).toLocaleDateString('fr-FR') %></p></div>
+      <% if (devis.validUntil) { %>
+      <div><span class="text-zinc-500">Valable jusqu'au</span>
+        <p class="text-white <% if (new Date(devis.validUntil) < new Date()) { %>text-red-400<% } %>">
+          <%= new Date(devis.validUntil).toLocaleDateString('fr-FR') %>
+        </p>
+      </div>
+      <% } %>
+      <% if (devis.sentAt) { %>
+      <div><span class="text-zinc-500">Envoyé le</span><p class="text-white"><%= new Date(devis.sentAt).toLocaleDateString('fr-FR') %></p></div>
+      <% } %>
+      <% if (devis.bookingId) { %>
+      <div><span class="text-zinc-500">Réservation liée</span><p><a href="/admin/bookings/<%= devis.bookingId %>" class="text-yellow-400 hover:underline">#<%= devis.bookingId %></a></p></div>
+      <% } %>
+    </div>
+
+    <!-- Changer statut -->
+    <div class="card p-5">
+      <h2 class="text-yellow-400 font-semibold mb-3 text-sm">Changer le statut</h2>
+      <form action="/admin/devis/<%= devis.id %>/status" method="POST" class="space-y-2">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <select name="status" class="input w-full text-sm">
+          <% ['brouillon', 'envoyé', 'accepté', 'refusé'].forEach(s => { %>
+          <option value="<%= s %>" <%= devis.status === s ? 'selected' : '' %>><%= s.charAt(0).toUpperCase() + s.slice(1) %></option>
+          <% }) %>
+        </select>
+        <button type="submit" class="btn-secondary w-full text-sm">Mettre à jour</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/admin-foot') %>

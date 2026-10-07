@@ -1,0 +1,69 @@
+<%- include('../../partials/admin-head') %>
+
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <h1 class="text-2xl font-bold text-white">Devis</h1>
+    <p class="text-zinc-400 text-sm mt-1"><%= devisList.length %> devis au total</p>
+  </div>
+  <a href="/admin/devis/new" class="btn-primary">+ Nouveau devis</a>
+</div>
+
+<!-- Filtres statut -->
+<div class="flex gap-2 mb-6 flex-wrap">
+  <% const statuts = ['', 'brouillon', 'envoyé', 'accepté', 'refusé']; %>
+  <% const labels  = { '': 'Tous', 'brouillon': 'Brouillon', 'envoyé': 'Envoyé', 'accepté': 'Accepté', 'refusé': 'Refusé' }; %>
+  <% statuts.forEach(s => { %>
+    <a href="/admin/devis<%= s ? '?status=' + s : '' %>"
+       class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors
+              <%= filterStatus === s ? 'bg-yellow-400 text-black' : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700' %>">
+      <%= labels[s] %>
+    </a>
+  <% }) %>
+</div>
+
+<div class="card overflow-hidden">
+  <% if (devisList.length === 0) { %>
+    <div class="p-12 text-center text-zinc-500">
+      <p class="text-4xl mb-3">📄</p>
+      <p>Aucun devis trouvé.</p>
+      <a href="/admin/devis/new" class="btn-primary mt-4 inline-block">Créer un devis</a>
+    </div>
+  <% } else { %>
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="border-b border-zinc-800 text-zinc-400 uppercase text-xs">
+        <th class="px-4 py-3 text-left">Référence</th>
+        <th class="px-4 py-3 text-left">Client</th>
+        <th class="px-4 py-3 text-left">Total</th>
+        <th class="px-4 py-3 text-left">Statut</th>
+        <th class="px-4 py-3 text-left">Date</th>
+        <th class="px-4 py-3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% devisList.forEach(d => { %>
+      <tr class="border-b border-zinc-800/50 hover:bg-zinc-800/30 transition-colors">
+        <td class="px-4 py-3 font-mono text-yellow-400 font-semibold"><%= d.reference %></td>
+        <td class="px-4 py-3">
+          <div class="font-medium text-white"><%= d.clientName %></div>
+          <div class="text-zinc-500 text-xs"><%= d.clientEmail %></div>
+        </td>
+        <td class="px-4 py-3 font-bold text-white"><%= Number(d.total).toFixed(2) %> €</td>
+        <td class="px-4 py-3">
+          <% const colors = { brouillon: 'bg-zinc-700 text-zinc-300', 'envoyé': 'bg-blue-500/20 text-blue-400', 'accepté': 'bg-green-500/20 text-green-400', 'refusé': 'bg-red-500/20 text-red-400' }; %>
+          <span class="px-2 py-0.5 rounded-full text-xs font-semibold <%= colors[d.status] || 'bg-zinc-700 text-zinc-300' %>">
+            <%= d.status %>
+          </span>
+        </td>
+        <td class="px-4 py-3 text-zinc-400"><%= new Date(d.createdAt).toLocaleDateString('fr-FR') %></td>
+        <td class="px-4 py-3 text-right">
+          <a href="/admin/devis/<%= d.id %>" class="text-yellow-400 hover:text-yellow-300 text-xs font-medium">Voir →</a>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+
+<%- include('../../partials/admin-foot') %>

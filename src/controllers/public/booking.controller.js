@@ -4,6 +4,7 @@ const { validate, bookingSchema } = require('../../utils/validators');
 const { createBooking } = require('../../services/booking.service');
 const { getZoneByPostalCode, isIleDeFrance } = require('../../services/zone.service');
 const { sendBookingConfirmation } = require('../../services/email.service');
+const { createFromBooking }       = require('../admin/devis.controller');
 const logger = require('../../utils/logger');
 
 const prisma = require('../../utils/prisma');
@@ -60,7 +61,11 @@ exports.submit = async (req, res) => {
 
   try {
     const booking = await createBooking(value);
+    // Envoi confirmation de réservation + devis automatique par email
     await sendBookingConfirmation(booking);
+    createFromBooking(booking, booking.service, booking.zone).catch(e =>
+      logger.warn('Devis auto non envoyé', { err: e.message })
+    );
     req.session.bookingId = booking.id;
     res.redirect('/reservation/merci');
   } catch (e) {

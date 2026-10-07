@@ -14,6 +14,7 @@ const bookCtrl     = require('../controllers/admin/bookings.controller');
 const custCtrl     = require('../controllers/admin/customers.controller');
 const settCtrl     = require('../controllers/admin/settings.controller');
 const zonesCtrl    = require('../controllers/admin/zones.controller');
+const devisCtrl    = require('../controllers/admin/devis.controller');
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 router.get( '/login',  redirectIfAuth, authCtrl.loginPage);
@@ -63,5 +64,14 @@ router.get('/customers/:id', requireAuth, custCtrl.show);
 // ── Paramètres ────────────────────────────────────────────────────────────────
 router.get( '/settings',     requireAuth, settCtrl.index);
 router.post('/settings',     requireAuth, settCtrl.update);
+
+// ── Devis ─────────────────────────────────────────────────────────────────────
+router.get( '/devis',              requireAuth, devisCtrl.index);
+router.get( '/devis/new',          requireAuth, devisCtrl.createForm);
+router.post('/devis',              requireAuth, devisCtrl.create);
+router.get( '/devis/:id',          requireAuth, devisCtrl.show);
+router.post('/devis/:id/send',     requireAuth, devisCtrl.send);
+router.post('/devis/:id/status',   requireAuth, devisCtrl.updateStatus);
+router.post('/devis/:id/delete',   requireAuth, devisCtrl.destroy);
 
 module.exports = router;

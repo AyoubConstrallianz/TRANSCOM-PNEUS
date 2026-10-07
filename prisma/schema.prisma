@@ -113,6 +113,30 @@ model Setting {
   value String
 }
 
+// ─── Devis ────────────────────────────────────────────────────────────────────
+model Devis {
+  id            Int      @id @default(autoincrement())
+  reference     String   @unique          // ex: DEV-2024-0001
+  status        String   @default("brouillon") // brouillon | envoyé | accepté | refusé
+  // Client
+  clientName    String
+  clientEmail   String
+  clientPhone   String?
+  clientType    String   @default("particulier") // particulier | professionnel
+  clientAddress String?
+  // Lignes de devis (JSON)
+  items         String   @default("[]")   // [{ description, qty, unitPrice }]
+  travelFee     Float    @default(0)
+  total         Float    @default(0)
+  // Méta
+  validUntil    DateTime?
+  notes         String?
+  sentAt        DateTime?
+  bookingId     Int?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
 // ─── Sessions (persistance cross-instance Vercel) ─────────────────────────────
 model Session {
   sid    String   @id
