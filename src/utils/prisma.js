@@ -1,15 +1,24 @@
 // utils/prisma.js — Instance Prisma partagée (singleton)
-// Supabase transaction pooler (port 6543 + pgbouncer=true) + connection_limit=1 pour serverless
+// En production : force le transaction pooler Supabase (port 6543 + pgbouncer=true)
 const { PrismaClient } = require('@prisma/client');
 
-// En prod/serverless : on limite à 1 connexion par instance Vercel
 function buildUrl() {
-  const url = process.env.DATABASE_URL || '';
+  let url = process.env.DATABASE_URL || '';
   if (!url) return url;
-  const sep = url.includes('?') ? '&' : '?';
-  // Ajoute connection_limit=1 si pas déjà présent
-  if (url.includes('connection_limit')) return url;
-  return `${url}${sep}connection_limit=1`;
+
+  // En production sur Vercel : passer au transaction pooler (port 6543)
+  // Le session pooler (port 5432) est limité à 15 connexions simultanées
+  if (process.env.NODE_ENV === 'production') {
+    url = url.replace(':5432/', ':6543/');
+    if (!url.includes('pgbouncer=true')) {
+      url += (url.includes('?') ? '&' : '?') + 'pgbouncer=true';
+    }
+    if (!url.includes('connection_limit')) {
+      url += '&connection_limit=1';
+    }
+  }
+
+  return url;
 }
 
 const prisma = new PrismaClient({
