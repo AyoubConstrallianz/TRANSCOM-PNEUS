@@ -54,13 +54,18 @@ exports.login = async (req, res) => {
     // Succès
     await prisma.user.update({ where: { id: user.id }, data: { loginAttempts: 0, lockedUntil: null } });
 
-    req.session.regenerate((err) => {
-      if (err) return res.redirect('/admin/login');
-      req.session.userId   = user.id;
-      req.session.userName = user.name;
-      req.session.userRole = user.role;
-      const returnTo = req.session.returnTo || '/admin';
-      delete req.session.returnTo;
+    const returnTo = req.session.returnTo || '/admin';
+    req.session.userId   = user.id;
+    req.session.userName = user.name;
+    req.session.userRole = user.role;
+    delete req.session.returnTo;
+
+    // save() explicite pour garantir la persistance avant le redirect (Vercel multi-instances)
+    req.session.save((err) => {
+      if (err) {
+        logger.error('Erreur sauvegarde session', { err: err.message });
+        return res.render('admin/login', { title: 'Connexion admin', error: 'Erreur de session. Veuillez réessayer.' });
+      }
       logger.info(`Connexion admin: ${email}`);
       res.redirect(returnTo);
     });
