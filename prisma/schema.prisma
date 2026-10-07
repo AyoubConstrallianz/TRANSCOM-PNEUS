@@ -113,6 +113,15 @@ model Setting {
   value String
 }
 
+// ─── Sessions (persistance cross-instance Vercel) ─────────────────────────────
+model Session {
+  sid    String   @id
+  data   String
+  expire DateTime
+
+  @@index([expire])
+}
+
 // ─── Avis clients ─────────────────────────────────────────────────────────────
 model Review {
   id        Int      @id @default(autoincrement())

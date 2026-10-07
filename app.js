@@ -6,7 +6,7 @@ const path         = require('path');
 const helmet       = require('helmet');
 const morgan       = require('morgan');
 const session      = require('express-session');
-const pgSession    = require('connect-pg-simple')(session);
+const PrismaSessionStore = require('./src/utils/sessionStore');
 const cookieParser = require('cookie-parser');
 const { doubleCsrf } = require('csrf-csrf');
 
@@ -41,17 +41,9 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser(process.env.SESSION_SECRET));
 
-// ── Sessions (stockées en PostgreSQL pour Vercel multi-instances) ─────────────
-const sessionStore = process.env.DATABASE_URL
-  ? new pgSession({
-      conString:            process.env.DATABASE_URL,
-      tableName:            'session',
-      createTableIfMissing: true,
-    })
-  : undefined; // MemoryStore en dev sans DB
-
+// ── Sessions (Prisma store — partagé entre toutes les instances Vercel) ────────
 app.use(session({
-  store:             sessionStore,
+  store:             new PrismaSessionStore(),
   secret:            process.env.SESSION_SECRET || 'dev-secret-change-in-prod',
   resave:            false,
   saveUninitialized: false,
