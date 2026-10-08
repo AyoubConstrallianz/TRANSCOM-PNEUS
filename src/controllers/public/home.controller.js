@@ -1,6 +1,7 @@
 // controllers/public/home.controller.js
 
 const prisma = require('../../utils/prisma');
+const DEPT_CITIES = require('../../data/cities');
 
 const DEPT_NAMES = {
   '75': 'Paris', '77': 'Seine-et-Marne', '78': 'Yvelines',
@@ -65,6 +66,7 @@ exports.department = async (req, res) => {
       deptName,
       zone,
       depts: DEPT_NAMES,
+      cities: DEPT_CITIES[dept] || [],
     });
   } catch (e) {
     res.status(500).render('public/error', { title: 'Erreur', message: e.message });
