@@ -95,6 +95,10 @@ const { generateToken, doubleCsrfProtection } = doubleCsrf({
   getTokenFromRequest: (req) =>
     req.body?._csrf || req.headers['x-csrf-token'],
 });
+// ── Sitemap & robots (avant CSRF — les bots n'envoient pas de token) ────────
+app.get('/sitemap.xml', require('./src/controllers/public/seo.controller').sitemap);
+app.get('/robots.txt',  require('./src/controllers/public/seo.controller').robots);
+
 app.use(doubleCsrfProtection);
 
 // Rendre le token CSRF disponible dans toutes les vues
@@ -120,10 +124,6 @@ app.use(express.static(path.join(__dirname, 'public'), {
 // ── Routes ────────────────────────────────────────────────────────────────────
 app.use('/',       publicRoutes);
 app.use('/admin',  adminRoutes);
-
-// Sitemap
-app.get('/sitemap.xml', require('./src/controllers/public/seo.controller').sitemap);
-app.get('/robots.txt',  require('./src/controllers/public/seo.controller').robots);
 
 // ── 404 ───────────────────────────────────────────────────────────────────────
 app.use((req, res) => {
