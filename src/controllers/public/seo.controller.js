@@ -8,14 +8,13 @@ exports.sitemap = async (req, res) => {
   const tires = await prisma.tire.findMany({ where: { active: true }, select: { id: true, updatedAt: true } });
 
   const staticUrls = [
-    ['/', '1.0', 'weekly'],
-    ['/catalogue', '0.9', 'daily'],
-    ['/services', '0.8', 'monthly'],
-    ['/reservation', '0.9', 'weekly'],
-    ['/contact', '0.6', 'monthly'],
-    ['/faq', '0.5', 'monthly'],
+    ['/',             '1.0', 'weekly'],
+    ['/services',     '0.9', 'monthly'],
+    ['/reservation',  '0.9', 'weekly'],
+    ['/contact',      '0.7', 'monthly'],
+    ['/faq',          '0.7', 'monthly'],
   ];
-  DEPTS.forEach(d => staticUrls.push([`/pneus-domicile/${d}`, '0.7', 'monthly']));
+  DEPTS.forEach(d => staticUrls.push([`/pneus-domicile/${d}`, '0.8', 'monthly']));
 
   const urls = [
     ...staticUrls.map(([loc, prio, freq]) =>

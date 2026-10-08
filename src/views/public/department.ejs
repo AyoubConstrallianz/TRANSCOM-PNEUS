@@ -1,54 +1,164 @@
 <%- include('../partials/header') %>
 
+<!-- JSON-LD BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://transcompneus.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Zones d'intervention", "item": "https://transcompneus.fr/#zones" },
+    { "@type": "ListItem", "position": 3, "name": "Dépannage pneu <%= deptName %> (<%= dept %>)", "item": "https://transcompneus.fr/pneus-domicile/<%= dept %>" }
+  ]
+}
+</script>
+
+<!-- JSON-LD LocalBusiness spécifique département -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  "name": "TRANSCOM PNEUS — <%= deptName %> (<%= dept %>)",
+  "description": "Dépannage pneu crevé, montage et réparation de pneus à domicile dans le <%= dept %> – <%= deptName %>. Intervention 7j/7 et 24h/24.",
+  "url": "https://transcompneus.fr/pneus-domicile/<%= dept %>",
+  "telephone": "<%= phone %>",
+  "areaServed": { "@type": "AdministrativeArea", "name": "<%= deptName %> (<%= dept %>)" },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59" }
+  ]
+}
+</script>
+
 <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12 pb-24">
+
+  <!-- Breadcrumb visible -->
+  <nav class="text-sm text-zinc-500 mb-8" aria-label="Fil d'Ariane">
+    <a href="/" class="hover:text-yellow-400 transition-colors">Accueil</a>
+    <span class="mx-2">›</span>
+    <a href="/#zones" class="hover:text-yellow-400 transition-colors">Zones d'intervention</a>
+    <span class="mx-2">›</span>
+    <span class="text-zinc-300"><%= deptName %> (<%= dept %>)</span>
+  </nav>
+
   <!-- Hero département -->
-  <div class="bg-gradient-to-r from-red-900/30 to-gray-800 rounded-2xl p-8 mb-12">
+  <div class="bg-gradient-to-r from-yellow-400/10 to-zinc-900 border border-yellow-400/20 rounded-2xl p-8 mb-12">
     <div class="max-w-2xl">
-      <span class="text-5xl font-extrabold text-red-500"><%= dept %></span>
+      <span class="inline-block bg-yellow-400 text-black text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full mb-4"><%= dept %></span>
       <h1 class="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
-        Pneus à domicile — <%= deptName %>
+        Dépannage Pneu à Domicile — <%= deptName %>
       </h1>
-      <p class="text-gray-300 text-lg mb-6">TRANSCOM PNEUS intervient dans tout le <%= dept %> – <%= deptName %> pour le montage, la réparation et l'équilibrage de vos pneus.</p>
+      <p class="text-zinc-300 text-lg mb-4">
+        TRANSCOM PNEUS intervient 7j/7 et 24h/24 dans tout le <%= dept %> – <%= deptName %> pour le dépannage pneu crevé, le montage, la réparation et l'équilibrage de vos pneus directement à votre domicile.
+      </p>
       <% if (zone) { %>
-        <p class="text-sm text-gray-400 mb-6">
+        <p class="text-sm text-zinc-400 mb-6">
           Frais de déplacement dans le <%= dept %> :
-          <strong class="text-orange-400"><%= zone.travelFee === 0 ? 'Gratuit' : zone.travelFee + ' €' %></strong>
+          <strong class="text-yellow-400"><%= zone.travelFee === 0 ? 'Gratuit' : zone.travelFee + ' €' %></strong>
         </p>
       <% } %>
-      <a href="/reservation?cp=<%= dept %>" class="btn-primary text-base px-8 py-4">Prendre rendez-vous dans le <%= dept %></a>
+      <div class="flex flex-wrap gap-3">
+        <a href="/reservation?cp=<%= dept %>" class="btn-primary text-base px-8 py-4">Prendre rendez-vous dans le <%= dept %></a>
+        <a href="tel:<%= phone %>" class="btn-secondary text-base px-6 py-4">📞 Appeler</a>
+      </div>
     </div>
   </div>
 
   <!-- Avantages locaux -->
   <div class="grid md:grid-cols-3 gap-6 mb-12">
     <div class="card p-5">
-      <div class="text-red-400 text-2xl mb-2">📍</div>
-      <h3 class="font-bold mb-1">Couverture totale du <%= dept %></h3>
-      <p class="text-gray-400 text-sm">Nous intervenons dans toutes les communes du département <%= dept %> – <%= deptName %>.</p>
+      <div class="text-yellow-400 text-2xl mb-2">📍</div>
+      <h2 class="font-bold text-white mb-1">Couverture totale du <%= dept %></h2>
+      <p class="text-zinc-400 text-sm">Nous intervenons dans toutes les communes du département <%= dept %> – <%= deptName %>, domicile ou lieu de travail.</p>
     </div>
     <div class="card p-5">
-      <div class="text-orange-400 text-2xl mb-2">⚡</div>
-      <h3 class="font-bold mb-1">Réponse rapide</h3>
-      <p class="text-gray-400 text-sm">Dépannage urgent en moins de 2h. Créneaux disponibles 7j/7.</p>
+      <div class="text-yellow-400 text-2xl mb-2">⚡</div>
+      <h2 class="font-bold text-white mb-1">Intervention en moins de 2h</h2>
+      <p class="text-zinc-400 text-sm">Dépannage urgence pneu crevé disponible 7j/7 et 24h/24. Créneaux disponibles le jour même.</p>
     </div>
     <div class="card p-5">
-      <div class="text-green-400 text-2xl mb-2">💰</div>
-      <h3 class="font-bold mb-1">Prix transparents</h3>
-      <p class="text-gray-400 text-sm">Frais de déplacement : <strong class="text-white"><%= zone ? (zone.travelFee === 0 ? 'Gratuit' : zone.travelFee + ' €') : 'voir devis' %></strong>. Sans surprise.</p>
+      <div class="text-yellow-400 text-2xl mb-2">💰</div>
+      <h2 class="font-bold text-white mb-1">Devis gratuit, prix clairs</h2>
+      <p class="text-zinc-400 text-sm">Frais de déplacement : <strong class="text-white"><%= zone ? (zone.travelFee === 0 ? 'Gratuit' : zone.travelFee + ' €') : 'voir devis' %></strong>. Tarif affiché avant validation, sans surprise.</p>
+    </div>
+  </div>
+
+  <!-- Services proposés -->
+  <div class="card p-6 mb-10">
+    <h2 class="text-xl font-bold text-white mb-6">Nos prestations de pneus à domicile dans le <%= dept %></h2>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="flex items-start gap-3">
+        <span class="text-yellow-400 text-xl mt-0.5">🛞</span>
+        <div>
+          <h3 class="font-semibold text-white">Dépannage pneu crevé</h3>
+          <p class="text-zinc-400 text-sm">Intervention rapide pour pneu à plat ou crevaison dans le <%= dept %>. Nous venons à vous.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-yellow-400 text-xl mt-0.5">🔧</span>
+        <div>
+          <h3 class="font-semibold text-white">Montage de pneus à domicile</h3>
+          <p class="text-zinc-400 text-sm">Montage et démontage professionnels avec équilibreuse mobile. Tous types de véhicules.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-yellow-400 text-xl mt-0.5">⚖️</span>
+        <div>
+          <h3 class="font-semibold text-white">Équilibrage de roues</h3>
+          <p class="text-zinc-400 text-sm">Équilibrage précis pour éliminer vibrations et usure prématurée des pneus.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-yellow-400 text-xl mt-0.5">🔩</span>
+        <div>
+          <h3 class="font-semibold text-white">Soudure à domicile</h3>
+          <p class="text-zinc-400 text-sm">Soudure acier, réparation et dépannage soudure dans le <%= dept %> – <%= deptName %>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 pt-4 border-t border-zinc-800 text-center">
+      <a href="/services" class="text-yellow-400 hover:text-yellow-300 text-sm font-semibold">Voir tous nos services →</a>
+    </div>
+  </div>
+
+  <!-- Comment ça marche -->
+  <div class="card p-6 mb-10">
+    <h2 class="text-xl font-bold text-white mb-6">Comment se déroule l'intervention dans le <%= dept %> ?</h2>
+    <div class="grid sm:grid-cols-4 gap-4 text-center text-sm">
+      <div>
+        <div class="w-10 h-10 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-2 text-yellow-400 font-black">1</div>
+        <p class="text-zinc-300 font-semibold mb-1">Réservation</p>
+        <p class="text-zinc-500">En ligne ou par téléphone en 2 min</p>
+      </div>
+      <div>
+        <div class="w-10 h-10 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-2 text-yellow-400 font-black">2</div>
+        <p class="text-zinc-300 font-semibold mb-1">Confirmation</p>
+        <p class="text-zinc-500">Récapitulatif par email avec le créneau</p>
+      </div>
+      <div>
+        <div class="w-10 h-10 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-2 text-yellow-400 font-black">3</div>
+        <p class="text-zinc-300 font-semibold mb-1">Intervention</p>
+        <p class="text-zinc-500">Technicien à votre adresse dans le <%= dept %></p>
+      </div>
+      <div>
+        <div class="w-10 h-10 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-2 text-yellow-400 font-black">✓</div>
+        <p class="text-zinc-300 font-semibold mb-1">C'est fait !</p>
+        <p class="text-zinc-500">Paiement sur place, vous êtes prêt</p>
+      </div>
     </div>
   </div>
 
   <!-- Autres zones -->
   <div class="card p-6">
-    <h2 class="font-bold mb-4">Autres départements desservis</h2>
+    <h2 class="font-bold text-white mb-4">Dépannage pneu dans les autres départements d'Île-de-France</h2>
     <div class="flex flex-wrap gap-3">
       <% Object.entries(depts).filter(([d]) => d !== dept).forEach(([d, n]) => { %>
-        <a href="/pneus-domicile/<%= d %>" class="bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors">
-          <strong><%= d %></strong> – <%= n %>
+        <a href="/pneus-domicile/<%= d %>" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors">
+          <strong class="text-yellow-400"><%= d %></strong> – <%= n %>
         </a>
       <% }) %>
     </div>
   </div>
+
 </div>
 
 <%- include('../partials/footer') %>

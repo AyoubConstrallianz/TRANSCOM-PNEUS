@@ -23,8 +23,8 @@ exports.home = async (req, res) => {
     ]);
 
     res.render('public/index', {
-      title: `${settings.company_name || 'TRANSCOM PNEUS'} — Pneus à domicile Île-de-France`,
-      metaDescription: settings.meta_description || '',
+      title: 'Dépannage Pneu & Soudure à Domicile Île-de-France — TRANSCOM PNEUS 7j/7 24h/24',
+      metaDescription: 'TRANSCOM PNEUS : dépannage pneu crevé, montage à domicile, soudure et réparation en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95). Intervention rapide 7j/7 et 24h/24. Devis gratuit.',
       settings,
       reviews,
       featuredTires,
@@ -40,8 +40,8 @@ exports.services = async (req, res) => {
   try {
     const [settings, services] = await Promise.all([getSettings(), prisma.service.findMany({ where: { active: true } })]);
     res.render('public/services', {
-      title: 'Nos services — TRANSCOM PNEUS',
-      metaDescription: 'Montage à domicile, réparation de crevaison, équilibrage, dépannage — TRANSCOM PNEUS intervient chez vous en Île-de-France.',
+      title: 'Dépannage Pneu, Soudure & Montage à Domicile — TRANSCOM PNEUS Île-de-France',
+      metaDescription: 'Tous nos services : dépannage pneu crevé, montage pneus à domicile, soudure acier, réparation crevaison, équilibrage — TRANSCOM PNEUS, 7j/7 et 24h/24 en Île-de-France.',
       settings,
       services,
     });
@@ -58,8 +58,8 @@ exports.department = async (req, res) => {
   try {
     const [settings, zone] = await Promise.all([getSettings(), prisma.zone.findUnique({ where: { dept } })]);
     res.render('public/department', {
-      title: `Pneus à domicile ${deptName} (${dept}) — TRANSCOM PNEUS`,
-      metaDescription: `TRANSCOM PNEUS intervient à domicile dans le ${dept} – ${deptName}. Montage, réparation, équilibrage. Intervention rapide.`,
+      title: `Dépannage Pneu à Domicile ${deptName} (${dept}) — TRANSCOM PNEUS 7j/7 24h/24`,
+      metaDescription: `TRANSCOM PNEUS : dépannage pneu crevé, montage et réparation de pneus à domicile dans le ${dept} – ${deptName}. Intervention rapide 7j/7 et 24h/24. Devis gratuit.`,
       settings,
       dept,
       deptName,

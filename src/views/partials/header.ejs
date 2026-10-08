@@ -7,25 +7,68 @@
   <% if (typeof metaDescription !== 'undefined' && metaDescription) { %>
     <meta name="description" content="<%= metaDescription %>">
   <% } %>
-  <meta property="og:title" content="<%= title %>">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="<%= process.env.APP_URL || 'https://transcompneus.fr' %><%= typeof currentPath !== 'undefined' ? currentPath : '' %>">
-  <link rel="canonical" href="<%= process.env.APP_URL || 'https://transcompneus.fr' %><%= typeof currentPath !== 'undefined' ? currentPath : '' %>">
+  <!-- Open Graph -->
+  <meta property="og:title"       content="<%= title %>">
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://transcompneus.fr<%= typeof currentPath !== 'undefined' ? currentPath : '' %>">
+  <meta property="og:image"       content="https://transcompneus.fr/images/logo.png">
+  <meta property="og:site_name"   content="TRANSCOM PNEUS">
+  <% if (typeof metaDescription !== 'undefined' && metaDescription) { %>
+  <meta property="og:description" content="<%= metaDescription %>">
+  <% } %>
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="<%= title %>">
+  <% if (typeof metaDescription !== 'undefined' && metaDescription) { %>
+  <meta name="twitter:description" content="<%= metaDescription %>">
+  <% } %>
+  <!-- Robots & Canonical -->
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://transcompneus.fr<%= typeof currentPath !== 'undefined' ? currentPath : '' %>">
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fugaz+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/tailwind.css">
+  <!-- JSON-LD LocalBusiness -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
+    "@id": "https://transcompneus.fr/#business",
     "name": "TRANSCOM PNEUS",
-    "description": "Vente et montage de pneus à domicile en Île-de-France",
+    "description": "Dépannage pneu à domicile, montage, réparation de crevaison, équilibrage et soudure en Île-de-France. Intervention 7j/7 et 24h/24.",
+    "url": "https://transcompneus.fr",
     "telephone": "<%= phone %>",
-    "email": "<%= typeof settings !== 'undefined' ? (settings.company_email || '') : '' %>",
-    "areaServed": ["Paris","Seine-et-Marne","Yvelines","Essonne","Hauts-de-Seine","Seine-Saint-Denis","Val-de-Marne","Val-d'Oise"],
-    "openingHours": "Mo-Sa 08:00-19:00",
+    "email": "contact@transcompneus.fr",
+    "image": "https://transcompneus.fr/images/logo.png",
     "priceRange": "€€",
-    "url": "<%= process.env.APP_URL || 'https://transcompneus.fr' %>"
+    "currenciesAccepted": "EUR",
+    "paymentAccepted": "Cash, Carte bancaire",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59" }
+    ],
+    "areaServed": [
+      { "@type": "City", "name": "Paris", "containedInPlace": { "@type": "State", "name": "Île-de-France" } },
+      { "@type": "AdministrativeArea", "name": "Seine-et-Marne (77)" },
+      { "@type": "AdministrativeArea", "name": "Yvelines (78)" },
+      { "@type": "AdministrativeArea", "name": "Essonne (91)" },
+      { "@type": "AdministrativeArea", "name": "Hauts-de-Seine (92)" },
+      { "@type": "AdministrativeArea", "name": "Seine-Saint-Denis (93)" },
+      { "@type": "AdministrativeArea", "name": "Val-de-Marne (94)" },
+      { "@type": "AdministrativeArea", "name": "Val-d'Oise (95)" }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Prestations TRANSCOM PNEUS",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dépannage pneu à domicile", "description": "Intervention rapide pour crevaison, pneu à plat, changement de pneu à votre domicile ou sur votre lieu de travail en Île-de-France." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Montage de pneus à domicile", "description": "Montage et démontage de pneus à votre domicile. Équilibrage inclus. Tous types de véhicules." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Soudure à domicile", "description": "Soudure acier, dépannage soudure, réparation de pièces métalliques et travaux sur mesure en Île-de-France." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Réparation de crevaison", "description": "Réparation rapide d'un pneu crevé sans remplacement. Intervention dans l'heure." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Équilibrage de roues", "description": "Équilibrage précis de vos roues pour éliminer les vibrations et usure prématurée." } }
+      ]
+    },
+    "sameAs": []
   }
   </script>
 </head>
