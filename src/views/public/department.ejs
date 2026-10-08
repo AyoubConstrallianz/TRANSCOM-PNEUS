@@ -50,12 +50,6 @@
       <p class="text-zinc-300 text-lg mb-4">
         TRANSCOM PNEUS intervient 7j/7 et 24h/24 dans tout le <%= dept %> – <%= deptName %> pour le dépannage pneu crevé, le montage, la réparation et l'équilibrage de vos pneus directement à votre domicile.
       </p>
-      <% if (zone) { %>
-        <p class="text-sm text-zinc-400 mb-6">
-          Frais de déplacement dans le <%= dept %> :
-          <strong class="text-yellow-400"><%= zone.travelFee === 0 ? 'Gratuit' : zone.travelFee + ' €' %></strong>
-        </p>
-      <% } %>
       <div class="flex flex-wrap gap-3">
         <a href="/reservation?cp=<%= dept %>" class="btn-primary text-base px-8 py-4">Prendre rendez-vous dans le <%= dept %></a>
         <a href="tel:<%= phone %>" class="btn-secondary text-base px-6 py-4">📞 Appeler</a>
@@ -78,7 +72,7 @@
     <div class="card p-5">
       <div class="text-yellow-400 text-2xl mb-2">💰</div>
       <h2 class="font-bold text-white mb-1">Devis gratuit, prix clairs</h2>
-      <p class="text-zinc-400 text-sm">Frais de déplacement : <strong class="text-white"><%= zone ? (zone.travelFee === 0 ? 'Gratuit' : zone.travelFee + ' €') : 'voir devis' %></strong>. Tarif affiché avant validation, sans surprise.</p>
+      <p class="text-zinc-400 text-sm">Tarif affiché avant validation, sans surprise. Devis 100% gratuit et sans engagement.</p>
     </div>
   </div>
 
