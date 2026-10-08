@@ -1,0 +1,191 @@
+<%- include('../../partials/header') %>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Dépannage pneu à domicile Île-de-France",
+  "description": "Dépannage pneu crevé, changement de pneu et réparation à domicile en Île-de-France. Intervention rapide 7j/7 et 24h/24.",
+  "provider": { "@type": "AutoRepair", "name": "TRANSCOM PNEUS", "url": "https://transcompneus.fr", "telephone": "<%= phone %>" },
+  "areaServed": { "@type": "State", "name": "Île-de-France" },
+  "serviceType": "Dépannage pneu"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Combien coûte un dépannage pneu à domicile ?", "acceptedAnswer": { "@type": "Answer", "text": "Le prix dépend du type d'intervention (réparation ou remplacement) et du type de pneu. Nous proposons un devis gratuit et sans engagement directement en ligne ou par téléphone." } },
+    { "@type": "Question", "name": "En combien de temps intervenez-vous pour un dépannage pneu ?", "acceptedAnswer": { "@type": "Answer", "text": "Pour les urgences, nous intervenons en moins de 2 heures partout en Île-de-France. Nous sommes disponibles 7j/7 et 24h/24." } },
+    { "@type": "Question", "name": "Intervenez-vous sur autoroute ou parking souterrain ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, nos techniciens interviennent partout : à domicile, en entreprise, sur parking, au bord de la route. Nous nous adaptons à votre situation." } },
+    { "@type": "Question", "name": "Faut-il fournir le pneu de remplacement ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, nos techniciens peuvent apporter le pneu de remplacement adapté à votre véhicule. Vous pouvez aussi fournir le vôtre si vous le souhaitez." } }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://transcompneus.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://transcompneus.fr/services" },
+    { "@type": "ListItem", "position": 3, "name": "Dépannage pneu à domicile", "item": "https://transcompneus.fr/depannage-pneu" }
+  ]
+}
+</script>
+
+<section class="bg-black border-b border-zinc-800 py-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <nav class="text-sm text-zinc-500 mb-6">
+      <a href="/" class="hover:text-yellow-400">Accueil</a> <span class="mx-2">›</span>
+      <a href="/services" class="hover:text-yellow-400">Services</a> <span class="mx-2">›</span>
+      <span class="text-zinc-300">Dépannage pneu</span>
+    </nav>
+    <div class="inline-flex items-center gap-2 border border-yellow-400/40 bg-yellow-400/10 rounded-full px-4 py-1.5 text-yellow-400 text-sm font-semibold mb-6 uppercase tracking-wider">
+      <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+      Disponible 7j/7 — 24h/24
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black text-white uppercase mb-4">Dépannage Pneu<br><span class="text-yellow-400">à Domicile</span></h1>
+    <p class="text-zinc-300 text-lg max-w-2xl mb-8">Pneu crevé, pneu à plat, éclatement ? TRANSCOM PNEUS intervient directement chez vous partout en Île-de-France. Nos techniciens arrivent avec le matériel et les pneus nécessaires.</p>
+    <div class="flex flex-wrap gap-4">
+      <a href="/reservation" class="btn-primary text-base px-8 py-4">Demander un dépannage</a>
+      <a href="tel:<%= phone %>" class="btn-secondary text-base px-8 py-4">Appeler maintenant</a>
+    </div>
+  </div>
+</section>
+
+<!-- Situations de dépannage -->
+<section class="py-16 bg-zinc-950">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl md:text-3xl font-black text-white uppercase mb-8">Quand faire appel à un dépannage pneu ?</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">💥</span>
+        <h3 class="font-bold text-white mb-2">Pneu crevé</h3>
+        <p class="text-zinc-400 text-sm">Crevaison par clou, vis ou objet tranchant. Nous réparons ou remplaçons votre pneu sur place.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">🌀</span>
+        <h3 class="font-bold text-white mb-2">Pneu à plat</h3>
+        <p class="text-zinc-400 text-sm">Fuite lente, valve défectueuse ou jante abîmée. Diagnostic et réparation directement à votre adresse.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">💨</span>
+        <h3 class="font-bold text-white mb-2">Éclatement de pneu</h3>
+        <p class="text-zinc-400 text-sm">Remplacement immédiat de votre pneu éclaté. Nous apportons le pneu de rechange adapté à votre véhicule.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">🔄</span>
+        <h3 class="font-bold text-white mb-2">Changement de pneus usés</h3>
+        <p class="text-zinc-400 text-sm">Pneus lisses ou arrivés en fin de vie ? Nous remplaçons vos pneus usés sans vous déplacer au garage.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">❄️</span>
+        <h3 class="font-bold text-white mb-2">Pneus hiver / été</h3>
+        <p class="text-zinc-400 text-sm">Changement saisonnier de pneus été et pneus hiver à domicile. Stockage possible.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">🚐</span>
+        <h3 class="font-bold text-white mb-2">Tous véhicules</h3>
+        <p class="text-zinc-400 text-sm">Voiture, SUV, utilitaire, camionnette — nous intervenons sur tous types de véhicules.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comment ça marche -->
+<section class="py-16 bg-black">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl md:text-3xl font-black text-white uppercase mb-8">Comment fonctionne le dépannage pneu TRANSCOM ?</h2>
+    <div class="grid sm:grid-cols-4 gap-6 text-center">
+      <div>
+        <div class="w-14 h-14 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-400 font-black text-xl">1</div>
+        <h3 class="font-bold text-white mb-1">Appelez ou réservez</h3>
+        <p class="text-zinc-400 text-sm">Par téléphone ou en ligne, décrivez votre problème de pneu et votre adresse.</p>
+      </div>
+      <div>
+        <div class="w-14 h-14 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-400 font-black text-xl">2</div>
+        <h3 class="font-bold text-white mb-1">Devis immédiat</h3>
+        <p class="text-zinc-400 text-sm">Vous recevez un devis gratuit par email avant toute intervention.</p>
+      </div>
+      <div>
+        <div class="w-14 h-14 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-400 font-black text-xl">3</div>
+        <h3 class="font-bold text-white mb-1">Intervention rapide</h3>
+        <p class="text-zinc-400 text-sm">Notre technicien arrive chez vous en moins de 2h avec tout le matériel nécessaire.</p>
+      </div>
+      <div>
+        <div class="w-14 h-14 bg-yellow-400/10 border border-yellow-400/30 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-400 font-black text-xl">✓</div>
+        <h3 class="font-bold text-white mb-1">Vous roulez</h3>
+        <p class="text-zinc-400 text-sm">Paiement sur place. Votre véhicule est prêt, vous reprenez la route.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-16 bg-zinc-950">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl font-black text-white uppercase mb-8">Questions fréquentes — Dépannage pneu</h2>
+    <div class="space-y-2">
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 transition-colors rounded-xl">
+          <span class="font-semibold pr-4">Combien coûte un dépannage pneu à domicile ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Le prix dépend du type d'intervention (réparation ou remplacement) et du type de pneu. Nous proposons un devis gratuit et sans engagement directement en ligne ou par téléphone.</div>
+      </details>
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 transition-colors rounded-xl">
+          <span class="font-semibold pr-4">En combien de temps intervenez-vous pour un dépannage pneu ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Pour les urgences, nous intervenons en moins de 2 heures partout en Île-de-France. Nous sommes disponibles 7 jours sur 7, 24 heures sur 24, y compris les jours fériés.</div>
+      </details>
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 transition-colors rounded-xl">
+          <span class="font-semibold pr-4">Intervenez-vous sur autoroute ou parking souterrain ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Oui, nos techniciens interviennent partout : à domicile, en entreprise, sur parking, au bord de la route. Nous nous adaptons à votre situation dans tous les départements d'Île-de-France.</div>
+      </details>
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 transition-colors rounded-xl">
+          <span class="font-semibold pr-4">Faut-il fournir le pneu de remplacement ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Non, nos techniciens peuvent apporter le pneu de remplacement adapté à votre véhicule. Vous pouvez aussi fournir le vôtre si vous le souhaitez.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Zones -->
+<section class="py-16 bg-black">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl font-black text-white uppercase mb-6">Dépannage pneu dans toute l'Île-de-France</h2>
+    <p class="text-zinc-400 mb-8">Nous intervenons dans les 8 départements d'Île-de-France pour le dépannage pneu à domicile :</p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <% Object.entries(depts).forEach(([code, name]) => { %>
+        <a href="/pneus-domicile/<%= code %>" class="card p-4 text-center hover:border-yellow-400/60 hover:bg-yellow-400/5 transition-all group">
+          <span class="text-2xl font-black text-yellow-400"><%= code %></span>
+          <p class="text-zinc-400 text-sm mt-1 group-hover:text-white transition-colors"><%= name %></p>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 bg-yellow-400">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+    <h2 class="text-3xl md:text-4xl font-black text-black uppercase mb-4">Pneu crevé ? On arrive.</h2>
+    <p class="text-black/70 text-lg mb-8 font-medium">Dépannage pneu à domicile en Île-de-France — devis gratuit, intervention rapide.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/reservation" class="bg-black text-yellow-400 font-black px-10 py-4 rounded-lg uppercase tracking-wide hover:bg-zinc-900 transition-colors">Réserver un dépannage</a>
+      <a href="tel:<%= phone %>" class="bg-black/20 text-black font-bold px-10 py-4 rounded-lg uppercase tracking-wide hover:bg-black/30 transition-colors border-2 border-black/30">Appeler</a>
+    </div>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>

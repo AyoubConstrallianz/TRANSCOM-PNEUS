@@ -1,0 +1,187 @@
+<%- include('../../partials/header') %>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Soudure à domicile Île-de-France",
+  "description": "Service de soudure à domicile en Île-de-France : soudure tresse voiture, soudure acier, réparation pot d'échappement, châssis, berceau, collecteur. Intervention 7j/7.",
+  "provider": { "@type": "AutoRepair", "name": "TRANSCOM PNEUS", "url": "https://transcompneus.fr", "telephone": "<%= phone %>" },
+  "areaServed": { "@type": "State", "name": "Île-de-France" },
+  "serviceType": "Soudure automobile"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Quels types de soudure proposez-vous ?", "acceptedAnswer": { "@type": "Answer", "text": "Nous proposons la soudure tresse, la soudure à l'arc, la soudure MIG/MAG et la soudure TIG selon les besoins. Nos techniciens maîtrisent la soudure sur acier, inox et aluminium." } },
+    { "@type": "Question", "name": "Pouvez-vous souder un pot d'échappement à domicile ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, la réparation de pot d'échappement par soudure est l'une de nos spécialités. Nous intervenons à domicile pour souder les fissures, les trous et les raccords d'échappement." } },
+    { "@type": "Question", "name": "La soudure tresse voiture, c'est quoi ?", "acceptedAnswer": { "@type": "Answer", "text": "La soudure tresse est une technique de réparation qui consiste à souder un tressage métallique flexible sur les pièces d'échappement (collecteur, pot, ligne). Elle permet de réparer les fuites et les fissures de manière durable." } },
+    { "@type": "Question", "name": "Combien coûte une soudure à domicile ?", "acceptedAnswer": { "@type": "Answer", "text": "Le prix varie selon le type de soudure et la complexité. Nous proposons un devis gratuit par téléphone ou en ligne. Les tarifs commencent à partir de quelques dizaines d'euros." } }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://transcompneus.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://transcompneus.fr/services" },
+    { "@type": "ListItem", "position": 3, "name": "Soudure à domicile", "item": "https://transcompneus.fr/soudure-domicile" }
+  ]
+}
+</script>
+
+<section class="bg-black border-b border-zinc-800 py-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <nav class="text-sm text-zinc-500 mb-6">
+      <a href="/" class="hover:text-yellow-400">Accueil</a> <span class="mx-2">›</span>
+      <a href="/services" class="hover:text-yellow-400">Services</a> <span class="mx-2">›</span>
+      <span class="text-zinc-300">Soudure à domicile</span>
+    </nav>
+    <div class="inline-flex items-center gap-2 border border-yellow-400/40 bg-yellow-400/10 rounded-full px-4 py-1.5 text-yellow-400 text-sm font-semibold mb-6 uppercase tracking-wider">
+      <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+      Soudure tresse, acier, inox
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black text-white uppercase mb-4">Soudure<br><span class="text-yellow-400">à Domicile</span></h1>
+    <p class="text-zinc-300 text-lg max-w-2xl mb-8">TRANSCOM PNEUS propose un service de soudure à domicile en Île-de-France : soudure tresse voiture, soudure acier, réparation de pot d'échappement, châssis, berceau et toutes pièces métalliques.</p>
+    <div class="flex flex-wrap gap-4">
+      <a href="/reservation" class="btn-primary text-base px-8 py-4">Demander un devis soudure</a>
+      <a href="tel:<%= phone %>" class="btn-secondary text-base px-8 py-4">Appeler pour un devis</a>
+    </div>
+  </div>
+</section>
+
+<!-- Types de soudure -->
+<section class="py-16 bg-zinc-950">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl md:text-3xl font-black text-white uppercase mb-8">Nos prestations de soudure</h2>
+    <div class="grid sm:grid-cols-2 gap-6">
+      <div class="card p-6">
+        <h3 class="font-bold text-yellow-400 text-lg mb-3">Soudure tresse voiture</h3>
+        <p class="text-zinc-400 mb-3">La soudure tresse est une technique spécialisée pour la réparation des lignes d'échappement. Le tressage métallique flexible est soudé directement sur la pièce endommagée pour une réparation durable.</p>
+        <ul class="text-zinc-400 text-sm space-y-1">
+          <li>- Réparation collecteur d'échappement</li>
+          <li>- Soudure flexible d'échappement</li>
+          <li>- Raccord tresse inox</li>
+        </ul>
+      </div>
+      <div class="card p-6">
+        <h3 class="font-bold text-yellow-400 text-lg mb-3">Soudure pot d'échappement</h3>
+        <p class="text-zinc-400 mb-3">Votre pot d'échappement est percé, fissuré ou bruyant ? Nous le réparons par soudure directement chez vous, sans passer par le garage.</p>
+        <ul class="text-zinc-400 text-sm space-y-1">
+          <li>- Pot d'échappement percé</li>
+          <li>- Silencieux fissuré</li>
+          <li>- Ligne d'échappement cassée</li>
+        </ul>
+      </div>
+      <div class="card p-6">
+        <h3 class="font-bold text-yellow-400 text-lg mb-3">Soudure acier & châssis</h3>
+        <p class="text-zinc-400 mb-3">Réparation de pièces métalliques par soudure à l'arc ou MIG : châssis, berceau moteur, supports, ferrures et structures métalliques.</p>
+        <ul class="text-zinc-400 text-sm space-y-1">
+          <li>- Berceau moteur</li>
+          <li>- Châssis véhicule</li>
+          <li>- Supports et ferrures</li>
+        </ul>
+      </div>
+      <div class="card p-6">
+        <h3 class="font-bold text-yellow-400 text-lg mb-3">Soudure sur mesure</h3>
+        <p class="text-zinc-400 mb-3">Fabrication et réparation de pièces métalliques sur mesure : portails, grilles, barrières, remorques, structures diverses.</p>
+        <ul class="text-zinc-400 text-sm space-y-1">
+          <li>- Portails et clôtures</li>
+          <li>- Remorques et attelages</li>
+          <li>- Pièces spéciales sur mesure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pourquoi nous -->
+<section class="py-16 bg-black">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl md:text-3xl font-black text-white uppercase mb-8">Pourquoi choisir notre service de soudure ?</h2>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">🏠</span>
+        <h3 class="font-bold text-white mb-2">Soudure à domicile</h3>
+        <p class="text-zinc-400 text-sm">On vient chez vous avec tout le matériel de soudure professionnel. Pas besoin de vous déplacer.</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">🔧</span>
+        <h3 class="font-bold text-white mb-2">Multi-techniques</h3>
+        <p class="text-zinc-400 text-sm">Soudure à l'arc, MIG/MAG, TIG, soudure tresse — nous maîtrisons toutes les techniques.</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">💶</span>
+        <h3 class="font-bold text-white mb-2">Devis gratuit</h3>
+        <p class="text-zinc-400 text-sm">Envoyez-nous une photo de la pièce à souder et recevez un devis gratuit en quelques minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-16 bg-zinc-950">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl font-black text-white uppercase mb-8">Questions fréquentes — Soudure</h2>
+    <div class="space-y-2">
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 rounded-xl">
+          <span class="font-semibold pr-4">Quels types de soudure proposez-vous ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Nous proposons la soudure tresse, la soudure à l'arc, la soudure MIG/MAG et la soudure TIG selon les besoins. Nos techniciens maîtrisent la soudure sur acier, inox et aluminium.</div>
+      </details>
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 rounded-xl">
+          <span class="font-semibold pr-4">Pouvez-vous souder un pot d'échappement à domicile ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Oui, la réparation de pot d'échappement par soudure est l'une de nos spécialités. Nous intervenons à domicile pour souder les fissures, les trous et les raccords d'échappement.</div>
+      </details>
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 rounded-xl">
+          <span class="font-semibold pr-4">La soudure tresse voiture, c'est quoi ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">La soudure tresse est une technique de réparation qui consiste à souder un tressage métallique flexible sur les pièces d'échappement (collecteur, pot, ligne). Elle permet de réparer les fuites et fissures de manière durable et économique.</div>
+      </details>
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 rounded-xl">
+          <span class="font-semibold pr-4">Combien coûte une soudure à domicile ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Le prix varie selon le type de soudure et la complexité du travail. Nous proposons un devis gratuit par téléphone ou en ligne avant toute intervention. Contactez-nous pour un chiffrage précis.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Zones -->
+<section class="py-12 bg-black">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-xl font-bold text-white mb-6">Service de soudure dans toute l'Île-de-France</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <% Object.entries(depts).forEach(([code, name]) => { %>
+        <a href="/pneus-domicile/<%= code %>" class="card p-3 text-center hover:border-yellow-400/60 transition-all group">
+          <span class="text-xl font-black text-yellow-400"><%= code %></span>
+          <p class="text-zinc-400 text-xs mt-1"><%= name %></p>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-yellow-400">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+    <h2 class="text-3xl font-black text-black uppercase mb-4">Besoin d'une soudure ?</h2>
+    <p class="text-black/70 text-lg mb-8 font-medium">Soudure tresse, acier, échappement — on se déplace chez vous en Île-de-France.</p>
+    <a href="/reservation" class="bg-black text-yellow-400 font-black px-10 py-4 rounded-lg uppercase tracking-wide hover:bg-zinc-900 transition-colors inline-block">Demander un devis gratuit</a>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>

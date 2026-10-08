@@ -8,6 +8,7 @@ const catalogCtrl = require('../controllers/public/catalog.controller');
 const bookCtrl    = require('../controllers/public/booking.controller');
 const contactCtrl = require('../controllers/public/contact.controller');
 const legalCtrl   = require('../controllers/public/legal.controller');
+const seoCtrl     = require('../controllers/public/seoPages.controller');
 
 // Accueil
 router.get('/', homeCtrl.home);
@@ -40,5 +41,13 @@ router.get('/confidentialite',   legalCtrl.privacy);
 
 // Pages SEO par département
 router.get('/pneus-domicile/:dept', homeCtrl.department);
+
+// Pages SEO par service
+router.get('/depannage-pneu',         seoCtrl.depannagePneu);
+router.get('/crevaison-voiture',      seoCtrl.crevaisonVoiture);
+router.get('/crevaison-camion',       seoCtrl.crevaisonCamion);
+router.get('/soudure-domicile',       seoCtrl.soudure);
+router.get('/montage-pneu-domicile',  seoCtrl.montagePneu);
+router.get('/equilibrage-roues',      seoCtrl.equilibrage);
 
 module.exports = router;

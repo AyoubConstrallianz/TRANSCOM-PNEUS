@@ -1,0 +1,132 @@
+<%- include('../../partials/header') %>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Montage de pneus à domicile Île-de-France",
+  "description": "Montage et démontage de pneus à domicile en Île-de-France. Équilibrage inclus, tous véhicules. Intervention rapide sans vous déplacer.",
+  "provider": { "@type": "AutoRepair", "name": "TRANSCOM PNEUS", "url": "https://transcompneus.fr", "telephone": "<%= phone %>" },
+  "areaServed": { "@type": "State", "name": "Île-de-France" },
+  "serviceType": "Montage pneu à domicile"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://transcompneus.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://transcompneus.fr/services" },
+    { "@type": "ListItem", "position": 3, "name": "Montage pneu à domicile", "item": "https://transcompneus.fr/montage-pneu-domicile" }
+  ]
+}
+</script>
+
+<section class="bg-black border-b border-zinc-800 py-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <nav class="text-sm text-zinc-500 mb-6">
+      <a href="/" class="hover:text-yellow-400">Accueil</a> <span class="mx-2">›</span>
+      <a href="/services" class="hover:text-yellow-400">Services</a> <span class="mx-2">›</span>
+      <span class="text-zinc-300">Montage pneu à domicile</span>
+    </nav>
+    <div class="inline-flex items-center gap-2 border border-yellow-400/40 bg-yellow-400/10 rounded-full px-4 py-1.5 text-yellow-400 text-sm font-semibold mb-6 uppercase tracking-wider">
+      <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+      Équilibrage inclus
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black text-white uppercase mb-4">Montage de Pneus<br><span class="text-yellow-400">à Domicile</span></h1>
+    <p class="text-zinc-300 text-lg max-w-2xl mb-8">Fini les files d'attente au garage. TRANSCOM PNEUS vient monter vos pneus directement chez vous en Île-de-France avec du matériel professionnel. Équilibrage inclus dans chaque prestation.</p>
+    <div class="flex flex-wrap gap-4">
+      <a href="/reservation" class="btn-primary text-base px-8 py-4">Réserver un montage</a>
+      <a href="tel:<%= phone %>" class="btn-secondary text-base px-8 py-4">Appeler</a>
+    </div>
+  </div>
+</section>
+
+<!-- Ce qu'on fait -->
+<section class="py-16 bg-zinc-950">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl md:text-3xl font-black text-white uppercase mb-8">Nos prestations de montage pneu</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">🛞</span>
+        <h3 class="font-bold text-white mb-2">Montage 4 pneus neufs</h3>
+        <p class="text-zinc-400 text-sm">Vous avez acheté vos pneus en ligne ? Nous les montons chez vous avec équilibrage. Toutes marques, toutes dimensions.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">🔄</span>
+        <h3 class="font-bold text-white mb-2">Permutation de pneus</h3>
+        <p class="text-zinc-400 text-sm">Rotation des pneus avant/arrière pour une usure homogène et une durée de vie prolongée.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">❄️</span>
+        <h3 class="font-bold text-white mb-2">Changement été / hiver</h3>
+        <p class="text-zinc-400 text-sm">Passage aux pneus hiver ou retour aux pneus été. Nous venons chez vous pour le changement saisonnier.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">⚖️</span>
+        <h3 class="font-bold text-white mb-2">Équilibrage seul</h3>
+        <p class="text-zinc-400 text-sm">Vibrations au volant ? L'équilibrage de vos roues élimine les vibrations et l'usure prématurée.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">🚐</span>
+        <h3 class="font-bold text-white mb-2">Utilitaires & SUV</h3>
+        <p class="text-zinc-400 text-sm">Montage de pneus pour utilitaires, SUV, 4x4 et camionnettes avec matériel adapté.</p>
+      </div>
+      <div class="card p-5">
+        <span class="text-3xl mb-3 block">📦</span>
+        <h3 class="font-bold text-white mb-2">Vous fournissez ou on fournit</h3>
+        <p class="text-zinc-400 text-sm">Apportez vos pneus ou commandez-les via nous — dans les deux cas, on s'occupe du montage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Avantages -->
+<section class="py-16 bg-black">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl md:text-3xl font-black text-white uppercase mb-8">Le montage à domicile, c'est mieux</h2>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">⏰</span>
+        <h3 class="font-bold text-white mb-2">Gain de temps</h3>
+        <p class="text-zinc-400 text-sm">Plus de file d'attente au garage. Le technicien vient chez vous, au bureau ou au parking.</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">🔧</span>
+        <h3 class="font-bold text-white mb-2">Matériel pro</h3>
+        <p class="text-zinc-400 text-sm">Monte-pneus portable et équilibreuse mobile de qualité professionnelle pour un montage parfait.</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">✅</span>
+        <h3 class="font-bold text-white mb-2">Tout compris</h3>
+        <p class="text-zinc-400 text-sm">Démontage, montage, équilibrage, vérification de pression — tout est inclus dans la prestation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Zones -->
+<section class="py-12 bg-zinc-950">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-xl font-bold text-white mb-6">Montage de pneus à domicile dans toute l'Île-de-France</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <% Object.entries(depts).forEach(([code, name]) => { %>
+        <a href="/pneus-domicile/<%= code %>" class="card p-3 text-center hover:border-yellow-400/60 transition-all group">
+          <span class="text-xl font-black text-yellow-400"><%= code %></span>
+          <p class="text-zinc-400 text-xs mt-1"><%= name %></p>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-yellow-400">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+    <h2 class="text-3xl font-black text-black uppercase mb-4">Vos pneus montés chez vous</h2>
+    <p class="text-black/70 text-lg mb-8 font-medium">Montage professionnel avec équilibrage — on vient à votre adresse.</p>
+    <a href="/reservation" class="bg-black text-yellow-400 font-black px-10 py-4 rounded-lg uppercase tracking-wide hover:bg-zinc-900 transition-colors inline-block">Réserver un montage</a>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>

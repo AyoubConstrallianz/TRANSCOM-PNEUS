@@ -1,0 +1,160 @@
+<%- include('../../partials/header') %>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Réparation crevaison camion et utilitaire à domicile",
+  "description": "Dépannage et réparation de crevaison sur camion, utilitaire et poids lourd en Île-de-France. Intervention sur site 7j/7 et 24h/24.",
+  "provider": { "@type": "AutoRepair", "name": "TRANSCOM PNEUS", "url": "https://transcompneus.fr", "telephone": "<%= phone %>" },
+  "areaServed": { "@type": "State", "name": "Île-de-France" },
+  "serviceType": "Réparation crevaison camion"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Intervenez-vous sur les poids lourds et semi-remorques ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, nous intervenons sur tous types de camions, utilitaires, fourgons et poids lourds pour la réparation de crevaison et le remplacement de pneus en Île-de-France." } },
+    { "@type": "Question", "name": "Pouvez-vous intervenir directement sur un chantier ou un entrepôt ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, nous intervenons sur chantiers, entrepôts, zones industrielles, aires de repos et partout où votre véhicule est immobilisé en Île-de-France." } },
+    { "@type": "Question", "name": "Proposez-vous des contrats pour les flottes de véhicules ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, nous proposons des contrats d'entretien pour les entreprises et flottes de véhicules utilitaires avec tarifs préférentiels et interventions prioritaires." } }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://transcompneus.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://transcompneus.fr/services" },
+    { "@type": "ListItem", "position": 3, "name": "Crevaison camion", "item": "https://transcompneus.fr/crevaison-camion" }
+  ]
+}
+</script>
+
+<section class="bg-black border-b border-zinc-800 py-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <nav class="text-sm text-zinc-500 mb-6">
+      <a href="/" class="hover:text-yellow-400">Accueil</a> <span class="mx-2">›</span>
+      <a href="/services" class="hover:text-yellow-400">Services</a> <span class="mx-2">›</span>
+      <span class="text-zinc-300">Crevaison camion</span>
+    </nav>
+    <div class="inline-flex items-center gap-2 border border-yellow-400/40 bg-yellow-400/10 rounded-full px-4 py-1.5 text-yellow-400 text-sm font-semibold mb-6 uppercase tracking-wider">
+      <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+      Urgence 24h/24 — Camions & utilitaires
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black text-white uppercase mb-4">Crevaison Camion<br><span class="text-yellow-400">& Utilitaire</span></h1>
+    <p class="text-zinc-300 text-lg max-w-2xl mb-8">Votre camion, utilitaire ou poids lourd a un pneu crevé ? TRANSCOM PNEUS intervient directement sur site en Île-de-France pour minimiser votre temps d'immobilisation.</p>
+    <div class="flex flex-wrap gap-4">
+      <a href="/reservation" class="btn-primary text-base px-8 py-4">Demander un dépannage camion</a>
+      <a href="tel:<%= phone %>" class="btn-secondary text-base px-8 py-4">Urgence camion</a>
+    </div>
+  </div>
+</section>
+
+<!-- Véhicules -->
+<section class="py-16 bg-zinc-950">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl md:text-3xl font-black text-white uppercase mb-8">Véhicules pris en charge</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">🚐</span>
+        <h3 class="font-bold text-white mb-1">Fourgons</h3>
+        <p class="text-zinc-400 text-sm">Renault Master, Fiat Ducato, Mercedes Sprinter, VW Crafter...</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">🚛</span>
+        <h3 class="font-bold text-white mb-1">Camions porteurs</h3>
+        <p class="text-zinc-400 text-sm">3,5T à 26T. Tous gabarits de camions porteurs.</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">🚚</span>
+        <h3 class="font-bold text-white mb-1">Utilitaires</h3>
+        <p class="text-zinc-400 text-sm">Kangoo, Berlingo, Partner, Caddy et tous VUL.</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="text-4xl mb-3 block">🏗️</span>
+        <h3 class="font-bold text-white mb-1">Engins de chantier</h3>
+        <p class="text-zinc-400 text-sm">Chariot élévateur, mini-pelle, tracteur — pneus spéciaux.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Avantages pro -->
+<section class="py-16 bg-black">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl md:text-3xl font-black text-white uppercase mb-8">L'avantage TRANSCOM pour les professionnels</h2>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="card p-5">
+        <h3 class="font-bold text-yellow-400 mb-2">Moins de temps d'arrêt</h3>
+        <p class="text-zinc-400 text-sm">Intervention sur site sans déplacer le véhicule. Votre camion reprend la route rapidement.</p>
+      </div>
+      <div class="card p-5">
+        <h3 class="font-bold text-yellow-400 mb-2">Contrats flottes</h3>
+        <p class="text-zinc-400 text-sm">Tarifs préférentiels pour les entreprises avec plusieurs véhicules. Facturation mensuelle possible.</p>
+      </div>
+      <div class="card p-5">
+        <h3 class="font-bold text-yellow-400 mb-2">Intervention 24h/24</h3>
+        <p class="text-zinc-400 text-sm">Crevaison de nuit ou le week-end ? Nous intervenons 7j/7 et 24h/24 pour les urgences camion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-16 bg-zinc-950">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl font-black text-white uppercase mb-8">Questions fréquentes — Crevaison camion</h2>
+    <div class="space-y-2">
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 rounded-xl">
+          <span class="font-semibold pr-4">Intervenez-vous sur les poids lourds et semi-remorques ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Oui, nous intervenons sur tous types de camions, utilitaires, fourgons et poids lourds pour la réparation de crevaison et le remplacement de pneus en Île-de-France.</div>
+      </details>
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 rounded-xl">
+          <span class="font-semibold pr-4">Pouvez-vous intervenir sur un chantier ou un entrepôt ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Oui, nous intervenons sur chantiers, entrepôts, zones industrielles, aires de repos et partout où votre véhicule est immobilisé en Île-de-France.</div>
+      </details>
+      <details class="card group">
+        <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-zinc-800/50 rounded-xl">
+          <span class="font-semibold pr-4">Proposez-vous des contrats pour les flottes ?</span>
+          <svg class="w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-300 leading-relaxed">Oui, nous proposons des contrats d'entretien pour les entreprises et flottes de véhicules utilitaires avec tarifs préférentiels et interventions prioritaires.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Zones -->
+<section class="py-12 bg-black">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="text-xl font-bold text-white mb-6">Dépannage pneu camion dans toute l'Île-de-France</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <% Object.entries(depts).forEach(([code, name]) => { %>
+        <a href="/pneus-domicile/<%= code %>" class="card p-3 text-center hover:border-yellow-400/60 transition-all group">
+          <span class="text-xl font-black text-yellow-400"><%= code %></span>
+          <p class="text-zinc-400 text-xs mt-1"><%= name %></p>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-yellow-400">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+    <h2 class="text-3xl font-black text-black uppercase mb-4">Camion immobilisé ?</h2>
+    <p class="text-black/70 text-lg mb-8 font-medium">Dépannage pneu camion et utilitaire en Île-de-France — on intervient sur place.</p>
+    <a href="/reservation" class="bg-black text-yellow-400 font-black px-10 py-4 rounded-lg uppercase tracking-wide hover:bg-zinc-900 transition-colors inline-block">Demander un dépannage</a>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>
