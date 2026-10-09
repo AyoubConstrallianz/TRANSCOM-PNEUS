@@ -9,6 +9,7 @@ const bookCtrl    = require('../controllers/public/booking.controller');
 const contactCtrl = require('../controllers/public/contact.controller');
 const legalCtrl   = require('../controllers/public/legal.controller');
 const seoCtrl     = require('../controllers/public/seoPages.controller');
+const cityCtrl    = require('../controllers/public/cityPage.controller');
 
 // Accueil
 router.get('/', homeCtrl.home);
@@ -49,5 +50,8 @@ router.get('/crevaison-camion',       seoCtrl.crevaisonCamion);
 router.get('/soudure-domicile',       seoCtrl.soudure);
 router.get('/montage-pneu-domicile',  seoCtrl.montagePneu);
 router.get('/equilibrage-roues',      seoCtrl.equilibrage);
+
+// Pages SEO par ville — "Dépannage pneu à domicile à [Ville]"
+router.get('/depannage-pneu/:slug',  cityCtrl.cityPage);
 
 module.exports = router;

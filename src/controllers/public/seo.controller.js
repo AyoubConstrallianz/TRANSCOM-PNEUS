@@ -1,6 +1,7 @@
 // controllers/public/seo.controller.js
 
 const prisma = require('../../utils/prisma');
+const { ALL_CITIES } = require('../../data/cities');
 const APP_URL = process.env.APP_URL || 'https://transcompneus.fr';
 const DEPTS = ['75','77','78','91','92','93','94','95'];
 
@@ -21,6 +22,7 @@ exports.sitemap = async (req, res) => {
     ['/faq',                   '0.7', 'monthly'],
   ];
   DEPTS.forEach(d => staticUrls.push([`/pneus-domicile/${d}`, '0.8', 'monthly']));
+  ALL_CITIES.forEach(c => staticUrls.push([`/depannage-pneu/${c.slug}`, '0.7', 'monthly']));
 
   const urls = [
     ...staticUrls.map(([loc, prio, freq]) =>

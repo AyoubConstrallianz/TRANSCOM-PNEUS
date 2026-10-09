@@ -1,6 +1,15 @@
 // data/cities.js — Villes principales par département pour le SEO local
 
-module.exports = {
+function slugify(str) {
+  return str
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/['']/g, '-')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+const CITIES_BY_DEPT = {
   '75': [
     'Paris 1er', 'Paris 2e', 'Paris 3e', 'Paris 4e', 'Paris 5e', 'Paris 6e',
     'Paris 7e', 'Paris 8e', 'Paris 9e', 'Paris 10e', 'Paris 11e', 'Paris 12e',
@@ -68,3 +77,24 @@ module.exports = {
     'Osny', "Saint-Ouen-l'Aumône", 'Jouy-le-Moutier',
   ],
 };
+
+const DEPT_NAMES = {
+  '75': 'Paris', '77': 'Seine-et-Marne', '78': 'Yvelines',
+  '91': 'Essonne', '92': 'Hauts-de-Seine', '93': 'Seine-Saint-Denis',
+  '94': 'Val-de-Marne', '95': "Val-d'Oise",
+};
+
+// Index slug → { city, dept, deptName } pour lookup rapide
+const CITY_BY_SLUG = {};
+const ALL_CITIES = [];
+
+Object.entries(CITIES_BY_DEPT).forEach(([dept, cities]) => {
+  cities.forEach(city => {
+    const slug = slugify(city);
+    const entry = { city, slug, dept, deptName: DEPT_NAMES[dept] };
+    CITY_BY_SLUG[slug] = entry;
+    ALL_CITIES.push(entry);
+  });
+});
+
+module.exports = { CITIES_BY_DEPT, CITY_BY_SLUG, ALL_CITIES, DEPT_NAMES, slugify };

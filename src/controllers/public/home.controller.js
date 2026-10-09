@@ -1,13 +1,7 @@
 // controllers/public/home.controller.js
 
 const prisma = require('../../utils/prisma');
-const DEPT_CITIES = require('../../data/cities');
-
-const DEPT_NAMES = {
-  '75': 'Paris', '77': 'Seine-et-Marne', '78': 'Yvelines',
-  '91': 'Essonne', '92': 'Hauts-de-Seine', '93': 'Seine-Saint-Denis',
-  '94': 'Val-de-Marne', '95': "Val-d'Oise",
-};
+const { CITIES_BY_DEPT, DEPT_NAMES } = require('../../data/cities');
 
 async function getSettings() {
   const rows = await prisma.setting.findMany();
@@ -66,7 +60,7 @@ exports.department = async (req, res) => {
       deptName,
       zone,
       depts: DEPT_NAMES,
-      cities: DEPT_CITIES[dept] || [],
+      cities: CITIES_BY_DEPT[dept] || [],
     });
   } catch (e) {
     res.status(500).render('public/error', { title: 'Erreur', message: e.message });
